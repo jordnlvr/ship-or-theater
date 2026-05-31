@@ -18,6 +18,14 @@
   "engines": {
     "node": ">=20"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jordnlvr/ship-or-theater.git"
+  },
+  "homepage": "https://github.com/jordnlvr/ship-or-theater#readme",
+  "bugs": {
+    "url": "https://github.com/jordnlvr/ship-or-theater/issues"
+  },
   "bin": {
     "ship-or-theater": "dist/cli.js",
     "ship-or-theater-mcp": "dist/mcp.js"
@@ -38,6 +46,7 @@
   ],
   "scripts": {
     "build": "tsup",
+    "prepublishOnly": "npm run build",
     "dev": "tsup --watch",
     "smoke": "node scripts/smoke.mjs",
     "test": "vitest run",
