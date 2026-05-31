@@ -1,15 +1,21 @@
 import { writeFile } from "node:fs/promises";
 import { Command } from "commander";
-import { createLLM, resolveModel } from "./llm.js";
+import { createClaudeCliLLM } from "./claude-cli-llm.js";
+import { createLLM, type LLM, resolveModel } from "./llm.js";
 import { evaluate } from "./pipeline.js";
 import { renderMarkdown, toJSON } from "./scorecard.js";
 import { EvaluationInputSchema } from "./types.js";
 
 /**
- * CLI entry point. Reads ANTHROPIC_API_KEY from the environment, runs the
- * pipeline against a claim, and prints (or writes) the scorecard as markdown or
- * JSON. This is the only place besides mcp.ts that constructs a real LLM.
+ * CLI entry point. Runs the pipeline against a claim and prints (or writes) the
+ * scorecard. Two providers:
+ *   - "api"        : the Anthropic API (needs ANTHROPIC_API_KEY).
+ *   - "claude-cli" : the local, already-authenticated `claude` CLI — runs on a
+ *                    Claude subscription with NO API key.
+ * Default "auto": use the API if a key is present, otherwise the claude CLI.
  */
+
+type Provider = "auto" | "api" | "claude-cli";
 
 interface CliOptions {
   context?: string;
@@ -17,6 +23,36 @@ interface CliOptions {
   json?: boolean;
   out?: string;
   model?: string;
+  provider?: Provider;
+}
+
+/** Pick the LLM provider and a human-readable label for the scorecard. */
+function selectProvider(
+  options: CliOptions,
+): { llm: LLM; modelLabel: string } | { error: string } {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const hasKey = Boolean(apiKey && apiKey.length > 0);
+  const requested: Provider = options.provider ?? "auto";
+  const provider: Exclude<Provider, "auto"> =
+    requested === "auto" ? (hasKey ? "api" : "claude-cli") : requested;
+
+  if (provider === "api") {
+    if (!hasKey) {
+      return {
+        error:
+          "Provider 'api' needs ANTHROPIC_API_KEY. Set it, or use --provider claude-cli to run on your Claude subscription.",
+      };
+    }
+    const model = options.model ?? resolveModel();
+    return { llm: createLLM({ apiKey, model }), modelLabel: model };
+  }
+
+  // claude-cli
+  const model = options.model ?? "sonnet";
+  return {
+    llm: createClaudeCliLLM({ model }),
+    modelLabel: `${model} (via Claude CLI / subscription)`,
+  };
 }
 
 async function main(argv: string[]): Promise<void> {
@@ -39,6 +75,11 @@ async function main(argv: string[]): Promise<void> {
       "-m, --model <model>",
       "override the model (default: SOT_MODEL or built-in)",
     )
+    .option(
+      "--provider <provider>",
+      "api | claude-cli | auto (default: auto — API if ANTHROPIC_API_KEY is set, else the local claude CLI)",
+      "auto",
+    )
     .showHelpAfterError()
     .action(async (claim: string, options: CliOptions) => {
       const parsedInput = EvaluationInputSchema.safeParse({
@@ -56,19 +97,16 @@ async function main(argv: string[]): Promise<void> {
         return;
       }
 
-      const apiKey = process.env.ANTHROPIC_API_KEY;
-      if (!apiKey || apiKey.length === 0) {
-        process.stderr.write(
-          "ANTHROPIC_API_KEY is not set. Export it before running the CLI.\n",
-        );
+      const selected = selectProvider(options);
+      if ("error" in selected) {
+        process.stderr.write(`${selected.error}\n`);
         process.exitCode = 2;
         return;
       }
 
-      const model = options.model ?? resolveModel();
-      const llm = createLLM({ apiKey, model });
-
-      const scorecard = await evaluate(llm, parsedInput.data, { model });
+      const scorecard = await evaluate(selected.llm, parsedInput.data, {
+        model: selected.modelLabel,
+      });
       const output = options.json
         ? toJSON(scorecard)
         : renderMarkdown(scorecard);

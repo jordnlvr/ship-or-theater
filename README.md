@@ -69,12 +69,25 @@ npm install -g ship-or-theater
 npx ship-or-theater "<claim>" --context "<context>"
 ```
 
-Requires Node ≥ 20 and an `ANTHROPIC_API_KEY` in the environment.
+Requires Node ≥ 20 and one of two backends (see below).
+
+## Two ways to run
+
+ship-or-theater needs a model to run its agents. Pick whichever you have:
+
+- **Anthropic API** — set `ANTHROPIC_API_KEY`. Pay-per-token; works anywhere.
+- **Your Claude subscription** — if you have [Claude Code](https://claude.com/claude-code) installed and logged in, ship-or-theater can route every agent call through the local `claude` CLI. **No API key, no extra billing.**
+
+The CLI auto-selects: it uses the API when `ANTHROPIC_API_KEY` is set, otherwise the `claude` CLI. Force either with `--provider api` or `--provider claude-cli`.
 
 ## CLI usage
 
 ```bash
+# Option A — Anthropic API:
 export ANTHROPIC_API_KEY=sk-ant-...
+
+# Option B — your Claude subscription (no key needed), just have `claude` installed:
+#   (omit the key; --provider defaults to "auto")
 
 npx ship-or-theater "Our 7B model beats GPT-4 on internal benchmarks." \
   --context "Launch blog post; no benchmark suite or weights released." \
@@ -94,6 +107,7 @@ npx ship-or-theater "<claim>" --out scorecard.md
 | `-j, --json` | Emit JSON instead of markdown |
 | `-o, --out <file>` | Write output to a file instead of stdout |
 | `-m, --model <model>` | Override the model (default: `SOT_MODEL` env or built-in) |
+| `--provider <p>` | `api`, `claude-cli`, or `auto` (default — API if `ANTHROPIC_API_KEY` is set, else the local `claude` CLI) |
 
 The default model is `claude-sonnet-4-6`, overridable via the `SOT_MODEL` environment variable or `--model`.
 
