@@ -1,3 +1,9 @@
+<div align="center">
+
+<img src="assets/logo.svg" alt="ship or theater" width="360">
+
+</div>
+
 <!-- sot:readme-pitch:start -->
 # Saw an AI claim that sounds too good to be true?
 
@@ -9,8 +15,6 @@ Paste in an AI claim you saw online and get a straight answer, with evidence: re
 <!-- sot:readme-pitch:end -->
 
 <div align="center">
-
-<img src="assets/logo.svg" alt="ship or theater" width="360">
 
 **Is it shipping, or is it theater?** Six skeptics, a steelman and a judge score any AI claim from 0 to 100 on a fixed, public rubric, and say *inconclusive* when the evidence can't support a number.
 

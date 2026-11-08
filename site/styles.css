@@ -383,13 +383,19 @@ h1 { font: 600 clamp(44px, 4.4vw, 64px)/1.1 var(--serif); letter-spacing: -.028e
 @media (max-width: 800px) {
   .cards { grid-template-columns: minmax(0, 1fr); }
   /* Phone and tablet: section links live in a Menu disclosure under the header. */
+  .js .top:has(.nav-toggle[aria-expanded="true"]) { background: var(--surface); border-bottom-color: var(--rule-strong); backdrop-filter: none; }
+  .js .top:has(.nav-toggle[aria-expanded="true"])::before { content: ""; position: absolute; top: 100%; left: 0; right: 0; height: 100vh; background: rgb(20 22 27 / 0.56); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 1; }
   .nav { gap: var(--s2); }
   .nav-links { display: none; }
-  .js .nav-toggle { display: inline-flex; }
-  .js .nav-toggle[aria-expanded="true"] + .nav-links { display: grid; position: absolute; top: 100%; left: 0; right: 0; gap: 0; padding: var(--s2) var(--gutter) var(--s4); background: var(--bg); border-bottom: 1px solid var(--rule); box-shadow: var(--shadow), 0 18px 32px -12px rgb(0 0 0 / 0.28); }
+  .js .nav-toggle { display: inline-flex; position: relative; z-index: 2; }
+  .js .nav-toggle[aria-expanded="true"] + .nav-links { display: grid; position: absolute; top: 100%; left: 0; right: 0; z-index: 2; gap: 0; padding: var(--s2) var(--gutter) var(--s4); background: var(--surface); border-bottom: 1px solid var(--rule-strong); box-shadow: var(--shadow), 0 20px 44px -10px rgb(0 0 0 / 0.36); }
   .nav-links a { display: flex; align-items: center; min-height: 48px; padding: 0; font-size: 17px; color: var(--ink); }
   .nav-links a + a { border-top: 1px solid var(--rule); }
   .flags > div { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 800px) and (prefers-color-scheme: dark) {
+  .js .top:has(.nav-toggle[aria-expanded="true"])::before { background: rgb(5 7 11 / 0.76); }
+  .js .nav-toggle[aria-expanded="true"] + .nav-links { box-shadow: var(--shadow), 0 24px 48px -8px rgb(0 0 0 / 0.85); }
 }
 @media (max-width: 560px) {
   :root { --gutter: 16px; }
@@ -424,6 +430,8 @@ h1 { font: 600 clamp(44px, 4.4vw, 64px)/1.1 var(--serif); letter-spacing: -.028e
   /* Phone: brand and Menu share the bar; GitHub moves into the menu (it is also a hero button). */
   .js .nav .nav-gh { display: none; }
   .js .nav .nav-links-gh { display: flex; }
-  .cmd { padding-left: 14px; }
-  .cmd code { font-size: 13.5px; white-space: normal; overflow-wrap: anywhere; }
+  .cmd { gap: var(--s2); padding: 6px 6px 6px 12px; }
+  .cmd code { font-size: clamp(12px, 3.4vw, 13.5px); white-space: nowrap; }
+  .cmd .prompt { margin-right: 4px; }
+  .cmd .copy { padding: 0 12px; }
 }

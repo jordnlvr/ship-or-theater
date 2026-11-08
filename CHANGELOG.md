@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - unreleased
+
+### Fixed
+- Social card (`assets/social-card.html`, `assets/social-card.png`, `site/social-card.png`): enlarged the body copy, verdict band labels and footer command/URL to 30–32px so all text remains legible at social thumbnail widths (~400px).
+- Phone and tablet navigation menu (`site/styles.css`): gave the open menu disclosure a solid surface, stronger bottom border and shadow, and a dim scrim over the page below it in both light and dark mode so body text does not show through.
+- Hero CLI command on phone (`site/styles.css`): kept `$ npx ship-or-theater "<claim>"` on a single line across 360–430px viewports with a responsive monospace font size while keeping the Copy button reachable and preventing horizontal scroll.
+- README layout (`README.md`): moved the centered `assets/logo.svg` wordmark block to the very top of the file above the `sot:readme-pitch` block.
+
 ## [1.0.1] - 2026-11-07
 
 ### Changed
