@@ -24,11 +24,26 @@ import {
  * skeptic panel runs with `Promise.allSettled`: a failed dimension is recorded
  * as inconclusive (excluded from the weighted mean) instead of crashing the run.
  */
+export type PipelineStage =
+  | "extractor"
+  | "skeptics"
+  | "steelman"
+  | "judge"
+  | "done";
+
+export interface ProgressEvent {
+  stage: PipelineStage;
+  skepticsCompleted?: number;
+  skepticsTotal?: number;
+}
+
 export interface EvaluateOptions {
   /** Model label recorded in the scorecard (defaults to the resolved model). */
   model?: string;
   /** Injectable clock, primarily for deterministic tests. */
   now?: () => Date;
+  /** Optional progress callback invoked as pipeline stages advance. */
+  onProgress?: (event: ProgressEvent) => void;
 }
 
 export async function evaluate(
@@ -39,15 +54,29 @@ export async function evaluate(
   const input = EvaluationInputSchema.parse(rawInput);
   const model = options.model ?? resolveModel();
   const now = options.now ?? (() => new Date());
+  const onProgress = options.onProgress;
 
   // 1. Extractor — must succeed; without assertions there is nothing to judge.
+  onProgress?.({ stage: "extractor" });
   const extraction = await runExtractor(llm, input);
 
   // 2. Skeptic panel — one per dimension, parallel and fault-tolerant.
+  let skepticsCompleted = 0;
+  const skepticsTotal = DIMENSION_KEYS.length;
+  onProgress?.({ stage: "skeptics", skepticsCompleted: 0, skepticsTotal });
   const settled = await Promise.allSettled(
-    DIMENSION_KEYS.map((dimension) =>
-      runSkeptic(llm, dimension, input, extraction),
-    ),
+    DIMENSION_KEYS.map(async (dimension) => {
+      try {
+        return await runSkeptic(llm, dimension, input, extraction);
+      } finally {
+        skepticsCompleted++;
+        onProgress?.({
+          stage: "skeptics",
+          skepticsCompleted,
+          skepticsTotal,
+        });
+      }
+    }),
   );
 
   const findings: SkepticFinding[] = [];
@@ -62,14 +91,17 @@ export async function evaluate(
   });
 
   // 3. Steelman — argues the best case FOR the claim.
+  onProgress?.({ stage: "steelman" });
   const steelman = await runSteelman(llm, input, extraction);
 
   // 4. Judge — scores only the dimensions whose skeptic succeeded.
+  onProgress?.({ stage: "judge" });
   let judgedByKey = new Map<DimensionKey, JudgedDimension>();
   if (findings.length > 0) {
     const judgement = await runJudge(llm, input, findings, steelman);
     judgedByKey = new Map(judgement.dimensions.map((d) => [d.dimension, d]));
   }
+  onProgress?.({ stage: "done" });
 
   // 5. Assemble every dimension in rubric order. Dimensions whose skeptic
   //    failed (or that the judge did not score) are inconclusive — never a

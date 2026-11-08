@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-label="ship-or-theater scorecard: AlphaFold 2 at CASP14, Mixed 65.8 of 100">
+  <style>
+    .bg{fill:#ffffff}.rule{fill:#e2e0d9}.track{fill:#ecebe6}.ink{fill:#14161b}
+    .t{font-family:Inter,'Segoe UI',-apple-system,Helvetica,Arial,sans-serif;fill:#14161b}
+    .serif{font-family:Newsreader,Georgia,'Times New Roman',serif}.num{font-variant-numeric:lining-nums}
+    .muted{fill:#5b6170}.dim{font-size:20px;font-weight:600}.val{font-size:20px;font-weight:600}.wt{font-size:16px;font-weight:500}.tick{fill:#8a8f99}
+    .f-ships{fill:#0f7a46}.f-mixed{fill:#9a5b00}.f-theater{fill:#b4232a}.f-inconclusive{fill:#5b6170}
+    .s-theater{fill:#b4232a;opacity:.22}.s-mixed{fill:#9a5b00;opacity:.26}.s-ships{fill:#0f7a46;opacity:.22}
+    .v{fill:#9a5b00}
+    @media (prefers-color-scheme: dark){
+      .bg{fill:#12151c}.rule{fill:#252a35}.track{fill:#232834}.ink{fill:#eceef3}.t{fill:#eceef3}.muted{fill:#a3a9b6}
+      .f-ships{fill:#4cc98a}.f-mixed{fill:#f0b14a}.f-theater{fill:#ff6b66}.f-inconclusive{fill:#9aa1b0}
+      .s-theater{fill:#ff6b66}.s-mixed{fill:#f0b14a}.s-ships{fill:#4cc98a}.v{fill:#f0b14a}
+    }
+  </style>
+  <rect class="bg" width="1200" height="600" rx="20"/>
+  <rect class="rule" x="640" y="60" width="1" height="480"/>
+  <text x="80" y="82" class="t v" font-size="20" font-weight="700" letter-spacing="2">MIXED</text>
+  <text x="80" y="214" class="t serif num" font-size="140" font-weight="600" letter-spacing="-4">65.8</text>
+  <text x="80" y="258" class="t muted" font-size="20">/ 100 reality score</text>
+  <text x="80" y="373" class="t" font-size="24" font-weight="600">AlphaFold 2 at CASP14</text>
+  <text x="80" y="407" class="t muted" font-size="17">Google DeepMind · claimed Nov 30, 2020</text>
+  <rect x="80" y="447" width="208" height="12" class="s-theater"/><rect x="288" y="447" width="156" height="12" class="s-mixed"/><rect x="444" y="447" width="156" height="12" class="s-ships"/>
+  <rect x="287" y="441" width="2" height="24" class="tick"/><rect x="443" y="441" width="2" height="24" class="tick"/>
+  <rect x="420.65999999999997" y="439" width="3" height="28" class="ink"/>
+  <text x="80" y="489" class="t muted" font-size="15">Theater</text><text x="296" y="489" class="t muted" font-size="15"><tspan font-weight="700">40</tspan> Mixed</text><text x="452" y="489" class="t muted" font-size="15"><tspan font-weight="700">70</tspan> Ships</text>
+  <text x="700" y="82" class="t" font-size="20" font-weight="700">Six dimensions, fixed weights</text>
+    <text x="700" y="152" class="t dim">Reproducibility <tspan class="muted wt">20%</tspan></text>
+    <text x="1100" y="152" class="t val" text-anchor="end">68</text>
+    <rect x="700" y="166" width="400" height="8" rx="4" class="track"/>
+    <rect x="700" y="166" width="272" height="8" rx="4" class="f-mixed"/>
+    <text x="700" y="224" class="t dim">Evidence quality <tspan class="muted wt">20%</tspan></text>
+    <text x="1100" y="224" class="t val" text-anchor="end">78</text>
+    <rect x="700" y="238" width="400" height="8" rx="4" class="track"/>
+    <rect x="700" y="238" width="312" height="8" rx="4" class="f-ships"/>
+    <text x="700" y="296" class="t dim">Scope honesty <tspan class="muted wt">20%</tspan></text>
+    <text x="1100" y="296" class="t val" text-anchor="end">55</text>
+    <rect x="700" y="310" width="400" height="8" rx="4" class="track"/>
+    <rect x="700" y="310" width="220.00000000000003" height="8" rx="4" class="f-mixed"/>
+    <text x="700" y="368" class="t dim">Production-readiness <tspan class="muted wt">15%</tspan></text>
+    <text x="1100" y="368" class="t val" text-anchor="end">62</text>
+    <rect x="700" y="382" width="400" height="8" rx="4" class="track"/>
+    <rect x="700" y="382" width="248" height="8" rx="4" class="f-mixed"/>
+    <text x="700" y="440" class="t dim">Novelty <tspan class="muted wt">10%</tspan></text>
+    <text x="1100" y="440" class="t val" text-anchor="end">88</text>
+    <rect x="700" y="454" width="400" height="8" rx="4" class="track"/>
+    <rect x="700" y="454" width="352" height="8" rx="4" class="f-ships"/>
+    <text x="700" y="512" class="t dim">Hidden caveats <tspan class="muted wt">15%</tspan></text>
+    <text x="1100" y="512" class="t val" text-anchor="end">50</text>
+    <rect x="700" y="526" width="400" height="8" rx="4" class="track"/>
+    <rect x="700" y="526" width="200" height="8" rx="4" class="f-mixed"/>
+  <text x="80" y="536" class="t muted" font-size="15">Run Nov 7, 2026 with Claude Sonnet via Claude Code, ship-or-theater v1.0.0</text>
+</svg>

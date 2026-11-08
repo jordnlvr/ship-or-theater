@@ -33,7 +33,7 @@ function makeScorecard(overrides: Partial<Scorecard> = {}): Scorecard {
     ],
     strongestSteelman: "The team has a track record.",
     strongestDebunk: "No independent reproduction was provided.",
-    model: "claude-sonnet-4-6",
+    model: "claude-sonnet-5-5",
     generatedAt: "2026-05-31T00:00:00.000Z",
     ...overrides,
   };

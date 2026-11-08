@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+  workflow_dispatch:
+
+jobs:
+  test-and-pack:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [20, 22]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Build package
+        run: npm run build
+
+      - name: Pack, install in temp dir, and run CLI + MCP stdio smoke
+        shell: bash
+        run: |
+          set -euo pipefail
+          TARBALL="$(npm pack --silent | tail -n 1)"
+          TARBALL_PATH="$PWD/$TARBALL"
+          TMP_DIR="$(mktemp -d)"
+          trap 'rm -rf "$TMP_DIR" "$TARBALL_PATH"' EXIT
+
+          cd "$TMP_DIR"
+          npm init -y > /dev/null
+          npm install --no-save "$TARBALL_PATH"
+
+          ./node_modules/.bin/ship-or-theater --version
+          ./node_modules/.bin/ship-or-theater rubric
+
+          node --input-type=module -e '
+            import { Client } from "@modelcontextprotocol/sdk/client/index.js";
+            import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+
+            const transport = new StdioClientTransport({
+              command: process.execPath,
+              args: ["./node_modules/ship-or-theater/dist/mcp.js"],
+            });
+            const client = new Client({ name: "ci-smoke", version: "1.0.0" });
+            await client.connect(transport);
+            const tools = await client.listTools();
+            const names = tools.tools.map((t) => t.name);
+            if (!names.includes("evaluate_claim") || !names.includes("get_rubric")) {
+              throw new Error("Missing expected MCP tools: " + JSON.stringify(names));
+            }
+            const rubricRes = await client.callTool({ name: "get_rubric", arguments: {} });
+            const parsed = JSON.parse(rubricRes.content[0].text);
+            if (!Array.isArray(parsed.dimensions) || parsed.dimensions.length !== 6) {
+              throw new Error("Unexpected get_rubric payload");
+            }
+            await client.close();
+          '

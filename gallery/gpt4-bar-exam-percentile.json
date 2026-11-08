@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "slug": "gpt4-bar-exam-percentile",
+    "title": "GPT-4's top-decile bar exam claim",
+    "claimant": "OpenAI",
+    "claimDate": "2023-03-14",
+    "sourceUrl": "https://openai.com/index/gpt-4-research/",
+    "sources": [
+      {
+        "title": "OpenAI: GPT-4 launch research announcement (2023-03-14)",
+        "url": "https://openai.com/index/gpt-4-research/"
+      },
+      {
+        "title": "Katz et al.: GPT-4 passes the bar exam (published 2024)",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10894685/"
+      },
+      {
+        "title": "Martínez: Re-Evaluating GPT-4's Bar Exam Performance",
+        "url": "https://law-ai.org/re-evaluating-gpt-4s-bar-exam-performance/"
+      }
+    ],
+    "runAt": "2026-11-07T23:37:41.540Z",
+    "model": "sonnet",
+    "provider": "claude-cli",
+    "toolVersion": "1.0.0"
+  },
+  "scorecard": {
+    "input": {
+      "claim": "it passes a simulated bar exam with a score around the top 10% of test takers",
+      "context": "OpenAI made this comparison when releasing GPT-4 text capabilities through ChatGPT and an API waitlist. [1] Katz and colleagues reported a simulated Uniform Bar Examination score of approximately 297, above the passing thresholds they considered; their paper acknowledges assistance from OpenAI. [2] Their published discussion places the score between approximately the 68th and 90th percentiles depending on the jurisdiction and exam administration used for comparison. [2] Eric Martínez's re-evaluation replicated the multiple-choice score but challenged the essay grading and comparison population, estimating approximately the 62nd percentile against first-time test takers. [3]",
+      "sourceUrl": "https://openai.com/index/gpt-4-research/"
+    },
+    "verdict": "MIXED",
+    "overallScore": 46.1,
+    "dimensions": [
+      {
+        "dimension": "reproducibility",
+        "score": 50,
+        "inconclusive": false,
+        "confidence": 0.6,
+        "reasoning": "The multiple-choice result was independently replicated by Martínez, which is real reproducibility evidence for the core exam ability. But the headline percentile depends on essay grading by the study authors (not official bar graders) and on the comparison population. The independent re-evaluation lands at about the 62nd percentile, well short of the 90th. Vendor involvement, a possibly pre-release model, no published exact prompts, and unruled-out contamination limit third-party reproduction of the 'top 10%' figure. Partial reproducibility of the pass, weak reproducibility of the percentile."
+      },
+      {
+        "dimension": "evidence_quality",
+        "score": 52,
+        "inconclusive": false,
+        "confidence": 0.6,
+        "reasoning": "There is quantitative data: a published study with a ~297 simulated UBE score, a stated 68th–90th percentile range, and an independent replication of the MCQ portion. That is well above screenshots and vibes. But the cited headline is the top of the range, the supporting paper acknowledges OpenAI help, essay grading was non-official and contested, and the population choice moves the percentile a lot. Run variance and contamination are undocumented. The evidence supports 'passes and lands above the median' much better than 'top 10%'."
+      },
+      {
+        "dimension": "scope_honesty",
+        "score": 38,
+        "inconclusive": false,
+        "confidence": 0.65,
+        "reasoning": "The claim picks the most flattering end of a published range and drops the dependence on jurisdiction, administration and comparison population. The one independent estimate against first-time takers is ~62nd percentile, so the framing overstates standing. A simulated exam is also a narrow proxy that invites an implied leap to general legal competence, with no evidence on real legal tasks. The underlying capability is real, which keeps this above theater, but the headline is selectively framed."
+      },
+      {
+        "dimension": "production_readiness",
+        "score": 35,
+        "inconclusive": false,
+        "confidence": 0.5,
+        "reasoning": "The claim is a capability benchmark, not a deployment claim, so low production evidence is partly expected. Even so, there is no data on cost, latency, run-to-run variance, failure modes such as hallucinated citations, or governance for legal use. Nothing ties the tested configuration to the deployed ChatGPT/API model. Public availability shows access, not readiness. A deployment decision could not responsibly rest on the 'top 10%' headline."
+      },
+      {
+        "dimension": "novelty",
+        "score": 68,
+        "inconclusive": false,
+        "confidence": 0.6,
+        "reasoning": "GPT-4 clearly outperformed GPT-3.5 on this task, and the MCQ result replicated. This is a real capability improvement, not a wrapper or rebrand. The size is inflated by the percentile framing, and the likely cause is scaling gains rather than a new technique. Contamination was not ruled out, and no architecture or training detail was disclosed, so attributing the advance is hard. Moderate-to-good credit for a genuine but overstated step up."
+      },
+      {
+        "dimension": "hidden_caveats",
+        "score": 40,
+        "inconclusive": false,
+        "confidence": 0.6,
+        "reasoning": "The headline omits the 68th–90th range, the population effect that yields ~62nd against first-time takers, author-graded essays, OpenAI's role in the study, possible contamination, run variance and the tested-versus-deployed model question. It also says nothing about failure modes such as hallucinated citations. Some of these appear in the published paper, and there is no fabrication, since the underlying score is partly replicated. Still, the omissions are material and consistently make the claim look better."
+      }
+    ],
+    "summary": "The claim, made by OpenAI at the release of GPT-4's text capabilities, is that the model passes a simulated bar exam with a score in about the top 10% of human test takers. Context indicates this rests on a simulated Uniform Bar Examination score of about 297 reported by Katz et al., a paper with OpenAI assistance, which placed the score between roughly the 68th and 90th percentiles depending on the comparison. A later re-evaluation by Martínez replicated the multiple-choice result but disputed the essay grading and the comparison population, estimating about the 62nd percentile against first-time test takers. The claim therefore bundles a passing-score assertion, a percentile-rank assertion that depends on population choice, and an implicit generalization to legal competence. It also carries questions about vendor involvement and reproducibility.",
+    "assertions": [
+      {
+        "id": "a1",
+        "text": "GPT-4 passes a simulated bar exam (the Uniform Bar Examination), i.e., achieves a score above the passing thresholds.",
+        "testable": true,
+        "relatesTo": [
+          "reproducibility",
+          "evidence_quality"
+        ]
+      },
+      {
+        "id": "a2",
+        "text": "GPT-4's simulated bar exam score falls around the top 10% of test takers (roughly the 90th percentile).",
+        "testable": true,
+        "relatesTo": [
+          "evidence_quality",
+          "scope_honesty",
+          "hidden_caveats"
+        ]
+      },
+      {
+        "id": "a3",
+        "text": "The simulated exam result (approx. UBE score of 297) is a valid, representative measure of the model's legal competence, i.e., the result generalizes beyond the specific exam setup.",
+        "testable": true,
+        "relatesTo": [
+          "scope_honesty",
+          "hidden_caveats"
+        ]
+      },
+      {
+        "id": "a4",
+        "text": "The percentile comparison is made against an appropriate population of human test takers (e.g., all takers vs. first-time takers, specific jurisdiction and administration).",
+        "testable": true,
+        "relatesTo": [
+          "evidence_quality",
+          "scope_honesty",
+          "hidden_caveats"
+        ]
+      },
+      {
+        "id": "a5",
+        "text": "The essay (written) portions were graded in a way that fairly reflects human bar-exam grading standards.",
+        "testable": true,
+        "relatesTo": [
+          "evidence_quality",
+          "reproducibility",
+          "hidden_caveats"
+        ]
+      },
+      {
+        "id": "a6",
+        "text": "The result is independently reproducible: third parties can obtain the same multiple-choice and overall scores with the model.",
+        "testable": true,
+        "relatesTo": [
+          "reproducibility",
+          "evidence_quality"
+        ]
+      },
+      {
+        "id": "a7",
+        "text": "The capability represents a genuine advance over prior models (GPT-3.5 reportedly scored far lower, around the bottom 10%).",
+        "testable": true,
+        "relatesTo": [
+          "novelty"
+        ]
+      },
+      {
+        "id": "a8",
+        "text": "The evaluation was conducted without undue influence or conflict of interest (the supporting study acknowledges OpenAI assistance, and the claim originates from the model vendor).",
+        "testable": false,
+        "relatesTo": [
+          "evidence_quality",
+          "hidden_caveats"
+        ]
+      },
+      {
+        "id": "a9",
+        "text": "The model's performance is available to users through ChatGPT and an API waitlist, implying the tested capability is accessible in a deployed form, though it is unclear whether the tested configuration matches deployed behavior.",
+        "testable": true,
+        "relatesTo": [
+          "production_readiness",
+          "hidden_caveats"
+        ]
+      }
+    ],
+    "strongestSteelman": "This is one of the better-documented capability claims in the GPT-4 launch. The headline is backed by a named, peer-reviewed-style external study (Katz et al.) that reports a concrete simulated UBE score of about 297, above the passing cutoffs they considered. The multiple-choice portion is objective and was independently replicated by Martínez, a skeptic who set out to challenge the result. Even that critical re-evaluation puts GPT-4 at about the 62nd percentile against first-time takers, which is still a passing score and a clear step up from GPT-3.5's reported bottom-10% result. The 'top 10%' figure is the optimistic end of a published 68th–90th percentile range. So the real finding is 'passes, and lands well above the median'. The model was also released to the public through ChatGPT and an API waitlist, so users could try the capability themselves.",
+    "strongestDebunk": "Scope honesty (severity 68/100): Headline 'top 10%' is the most favorable end of a 68th–90th percentile range; the claim omits the range and the dependence on jurisdiction and administration.",
+    "model": "sonnet (via Claude CLI / subscription)",
+    "generatedAt": "2026-11-07T23:37:41.540Z"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "ship-or-theater",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Evaluate AI claims, demos, and announcements against a fixed, weighted reality rubric and render an honest scorecard.",
   "type": "module",
   "license": "MIT",
@@ -42,7 +42,8 @@
   "files": [
     "dist",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "CHANGELOG.md"
   ],
   "scripts": {
     "build": "tsup",

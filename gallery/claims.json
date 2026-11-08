@@ -1,0 +1,114 @@
+[
+  {
+    "slug": "alphafold2-casp14",
+    "title": "AlphaFold 2 at CASP14",
+    "claimant": "Google DeepMind",
+    "claimDate": "2020-11-30",
+    "claim": "our latest AlphaFold system achieves a median score of 92.4 GDT overall across all targets.",
+    "context": "DeepMind reported this result for AlphaFold 2 in CASP14, an assessment using protein structures withheld from participants before prediction. [1] DeepMind subsequently made AlphaFold 2 inference code and model parameters available in its public repository. [2] The independent ColabFold team reported matching AlphaFold 2 prediction quality on CASP14 targets using AlphaFold 2 with a different sequence-search pipeline. [3] The AlphaFold repository cautions that some CASP14 targets involved manual interventions and that reproducing the competition results requires the original database versions. [2]",
+    "sourceUrl": "https://deepmind.google/blog/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology/",
+    "sources": [
+      { "title": "DeepMind: AlphaFold, a solution to a 50-year-old grand challenge in biology (2020-11-30)", "url": "https://deepmind.google/blog/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology/" },
+      { "title": "DeepMind: AlphaFold 2 repository, including CASP14 reproducibility notes", "url": "https://github.com/google-deepmind/alphafold" },
+      { "title": "Mirdita et al.: ColabFold, making protein folding accessible to all (Nature Methods, 2022)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9184281/" }
+    ]
+  },
+  {
+    "slug": "whisper-open-speech-recognition",
+    "title": "Whisper's speech recognition release",
+    "claimant": "OpenAI",
+    "claimDate": "2022-09-21",
+    "claim": "We’ve trained and are open-sourcing a neural net called Whisper that approaches human level robustness and accuracy on English speech recognition.",
+    "context": "OpenAI announced Whisper with models and inference code, describing training on 680,000 hours of multilingual audio and acknowledging that it did not outperform specialized models on LibriSpeech. [1] Its public repository supplies transcription code and releases code and model weights under the MIT license. [2] Independent researchers Olivier and Raj evaluated Whisper, finding robustness to random noise but susceptibility to deliberately constructed adversarial audio perturbations. [3] A separate study by Koenecke and colleagues found many accurate transcriptions alongside invented phrases or sentences in roughly 1% of transcriptions in their evaluated sample, with higher hallucination rates for speech containing longer pauses. [4]",
+    "sourceUrl": "https://openai.com/index/whisper/",
+    "sources": [
+      { "title": "OpenAI: Introducing Whisper (2022-09-21)", "url": "https://openai.com/index/whisper/" },
+      { "title": "OpenAI: Whisper code, model usage and license", "url": "https://github.com/openai/whisper" },
+      { "title": "Olivier and Raj: There is more than one kind of robustness, Fooling Whisper with adversarial examples (Interspeech 2023)", "url": "https://www.isca-archive.org/interspeech_2023/olivier23_interspeech.html" },
+      { "title": "Koenecke et al.: Careless Whisper, Speech-to-Text Hallucination Harms (2024)", "url": "https://arxiv.org/abs/2402.08021" }
+    ]
+  },
+  {
+    "slug": "segment-anything-zero-shot",
+    "title": "Segment Anything's zero-shot transfer",
+    "claimant": "Meta",
+    "claimDate": "2023-04-05",
+    "claim": "The model is designed and trained to be promptable, so it can transfer zero-shot to new image distributions and tasks.",
+    "context": "Meta's Segment Anything paper introduced a promptable image-segmentation model and a dataset containing over one billion masks on 11 million images. [1] The public SAM repository provides inference code, model checkpoints, example notebooks and an Apache 2.0 license. [2] An independent study by Mazurowski and colleagues evaluated SAM on 19 medical imaging datasets and found that it outperformed several interactive segmentation methods in almost all single-point prompt settings. [3] That study also found substantial variation between tasks, better performance with box prompts than point prompts, and limited or poor performance on some medical datasets. [3]",
+    "sourceUrl": "https://arxiv.org/abs/2304.02643",
+    "sources": [
+      { "title": "Kirillov et al. (Meta): Segment Anything (2023-04-05)", "url": "https://arxiv.org/abs/2304.02643" },
+      { "title": "Meta: Segment Anything inference code and trained model checkpoints", "url": "https://github.com/facebookresearch/segment-anything" },
+      { "title": "Mazurowski et al.: Segment Anything Model for Medical Image Analysis, an Experimental Study (2023)", "url": "https://arxiv.org/abs/2304.10517" }
+    ]
+  },
+  {
+    "slug": "gpt4-bar-exam-percentile",
+    "title": "GPT-4's top-decile bar exam claim",
+    "claimant": "OpenAI",
+    "claimDate": "2023-03-14",
+    "claim": "it passes a simulated bar exam with a score around the top 10% of test takers",
+    "context": "OpenAI made this comparison when releasing GPT-4 text capabilities through ChatGPT and an API waitlist. [1] Katz and colleagues reported a simulated Uniform Bar Examination score of approximately 297, above the passing thresholds they considered; their paper acknowledges assistance from OpenAI. [2] Their published discussion places the score between approximately the 68th and 90th percentiles depending on the jurisdiction and exam administration used for comparison. [2] Eric Martínez's re-evaluation replicated the multiple-choice score but challenged the essay grading and comparison population, estimating approximately the 62nd percentile against first-time test takers. [3]",
+    "sourceUrl": "https://openai.com/index/gpt-4-research/",
+    "sources": [
+      { "title": "OpenAI: GPT-4 launch research announcement (2023-03-14)", "url": "https://openai.com/index/gpt-4-research/" },
+      { "title": "Katz et al.: GPT-4 passes the bar exam (published 2024)", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10894685/" },
+      { "title": "Martínez: Re-Evaluating GPT-4's Bar Exam Performance", "url": "https://law-ai.org/re-evaluating-gpt-4s-bar-exam-performance/" }
+    ]
+  },
+  {
+    "slug": "devin-swe-bench-launch",
+    "title": "Devin's SWE-bench launch result",
+    "claimant": "Cognition",
+    "claimDate": "2024-03-12",
+    "claim": "Devin correctly resolves 13.86%* of the issues end-to-end, far exceeding the previous state-of-the-art of 1.96%.",
+    "context": "Cognition introduced Devin as an AI software engineer and published demonstrations of coding, debugging and repository maintenance. [1] The launch announcement says its SWE-bench evaluation used a random 25% subset, with Devin unassisted and comparison models given the files to edit. [1] The announcement offered early access through a waitlist rather than unrestricted access. [1] In January 2025, Answer.AI published a hands-on evaluation reporting three successes, fourteen failures and three inconclusive outcomes across twenty tasks, including successful setup work and failures involving existing projects. [2] Answer.AI's tasks were a separate product evaluation rather than a reproduction of Cognition's original SWE-bench experiment. [1][2]",
+    "sourceUrl": "https://cognition.com/blog/introducing-devin",
+    "sources": [
+      { "title": "Cognition: Introducing Devin, the first AI software engineer (2024-03-12)", "url": "https://cognition.com/blog/introducing-devin" },
+      { "title": "Husain, Flath and Whitaker: Thoughts On A Month With Devin (Answer.AI, 2025-01-08)", "url": "https://www.answer.ai/posts/2025-01-08-devin.html" }
+    ]
+  },
+  {
+    "slug": "recall-launch-privacy",
+    "title": "Recall's launch privacy promise",
+    "claimant": "Microsoft",
+    "claimDate": "2024-05-20",
+    "claim": "You are always in control with privacy you can trust.",
+    "context": "Microsoft introduced Recall for Copilot+ PCs with a planned June 18, 2024 preview, describing an on-device semantic index, local snapshots, deletion controls and app or website exclusions. [1] On June 7, Microsoft announced explicit opt-in, Windows Hello requirements and additional protection including encryption of the search index database. [2] A June 13 update moved Recall from the planned broad June 18 preview to Windows Insider testing before wider availability. [2] On April 25, 2025, Microsoft announced the public rollout of Recall, still labeled preview, describing opt-in, biometric authentication and isolated processing of encrypted snapshots. [3]",
+    "sourceUrl": "https://blogs.microsoft.com/blog/2024/05/20/introducing-copilot-pcs/",
+    "sources": [
+      { "title": "Microsoft: Introducing Copilot+ PCs, Recall instantly section (2024-05-20)", "url": "https://blogs.microsoft.com/blog/2024/05/20/introducing-copilot-pcs/" },
+      { "title": "Microsoft: Update on the Recall preview feature for Copilot+ PCs (2024-06-07, with dated updates)", "url": "https://blogs.windows.com/windowsexperience/2024/06/07/update-on-the-recall-preview-feature-for-copilot-pcs/" },
+      { "title": "Microsoft: Responsible AI and trustworthy innovation on Windows (2025-04-25)", "url": "https://blogs.windows.com/windowsexperience/2025/04/25/responsible-ai-and-trustworthy-innovation-on-windows/" }
+    ]
+  },
+  {
+    "slug": "gemini-2023-multimodal-demo",
+    "title": "Gemini's 2023 multimodal demo",
+    "claimant": "Google",
+    "claimDate": "2023-12-06",
+    "claim": "Our natively multimodal AI model Gemini is capable of reasoning across text, images, audio, video and code.",
+    "context": "Google published this Gemini demonstration video on December 6, 2023; the quoted sentence appears in its video description. [1] The description discloses that latency was reduced and model outputs shortened for the demonstration. [1] Google's accompanying developer article presents image-and-text prompts and model responses used to make the demonstration, including rock-paper-scissors recognition and visual reasoning examples. [2] Tom's Hardware reported Google's explanation that the demonstration used still frames and typed prompts rather than the recorded real-time spoken interaction suggested by its presentation. [3]",
+    "sourceUrl": "https://www.youtube.com/watch?v=UIZAiXYceBI",
+    "sources": [
+      { "title": "Google: The capabilities of multimodal AI | Gemini Demo (video published 2023-12-06; current description)", "url": "https://www.youtube.com/watch?v=UIZAiXYceBI" },
+      { "title": "Google Developers: How it's Made, Interacting with Gemini through multimodal prompting (2023-12-06)", "url": "https://developers.googleblog.com/how-its-made-interacting-with-gemini-through-multimodal-prompting/" },
+      { "title": "Tom's Hardware: Google admits the Gemini AI demo hands-on video was staged (2023-12-08)", "url": "https://www.tomshardware.com/news/google-gemini-ai-video-staged" }
+    ]
+  },
+  {
+    "slug": "galactica-scientific-knowledge",
+    "title": "Galactica's scientific knowledge claim",
+    "claimant": "Meta",
+    "claimDate": "2022-11-16",
+    "claim": "In this paper we introduce Galactica: a large language model that can store, combine and reason about scientific knowledge.",
+    "context": "The Galactica paper, submitted on November 16, 2022, reports training on scientific material and benchmark results on scientific question answering, mathematics and other tasks. [1] Meta also released a public web demonstration that could produce literature reviews and other scientific text, according to contemporaneous reporting by Ars Technica. [2] Ars reported that the demonstration generated factual inaccuracies and fabricated scientific material and was taken offline within days of launch. [2] The authors' public repository still provides model-loading instructions and lists five model sizes, so withdrawal of the hosted demonstration did not amount to removal of all access to the models. [3]",
+    "sourceUrl": "https://arxiv.org/abs/2211.09085",
+    "sources": [
+      { "title": "Taylor et al. (Meta): Galactica, A Large Language Model for Science (2022-11-16)", "url": "https://arxiv.org/abs/2211.09085" },
+      { "title": "Ars Technica: New Meta AI demo writes racist and inaccurate scientific literature, gets pulled (2022-11-18)", "url": "https://arstechnica.com/information-technology/2022/11/after-controversy-meta-pulls-demo-of-ai-model-that-writes-scientific-papers/" },
+      { "title": "Papers with Code: GALACTICA model API and available model sizes", "url": "https://github.com/paperswithcode/galai" }
+    ]
+  }
+]

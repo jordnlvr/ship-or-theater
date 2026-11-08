@@ -1,0 +1,1373 @@
+{
+  "rubric": [
+    {
+      "key": "reproducibility",
+      "title": "Reproducibility",
+      "weight": 0.2,
+      "question": "Could an independent party reproduce it, or is it a cherry-picked demo?"
+    },
+    {
+      "key": "evidence_quality",
+      "title": "Evidence quality",
+      "weight": 0.2,
+      "question": "Real benchmarks and data, or screenshots and vibes?"
+    },
+    {
+      "key": "scope_honesty",
+      "title": "Scope honesty",
+      "weight": 0.2,
+      "question": "Does it generalize, or is narrow work dressed up as general?"
+    },
+    {
+      "key": "production_readiness",
+      "title": "Production-readiness",
+      "weight": 0.15,
+      "question": "Demo or deployable: latency, cost, reliability, governance?"
+    },
+    {
+      "key": "novelty",
+      "title": "Novelty",
+      "weight": 0.1,
+      "question": "Genuine new capability, or a wrapper and a rebrand?"
+    },
+    {
+      "key": "hidden_caveats",
+      "title": "Hidden caveats",
+      "weight": 0.15,
+      "question": "What is not said: failure modes, constraints, cost?"
+    }
+  ],
+  "bands": {
+    "shipsMin": 70,
+    "mixedMin": 40
+  },
+  "entries": [
+    {
+      "meta": {
+        "slug": "alphafold2-casp14",
+        "title": "AlphaFold 2 at CASP14",
+        "claimant": "Google DeepMind",
+        "claimDate": "2020-11-30",
+        "sourceUrl": "https://deepmind.google/blog/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology/",
+        "sources": [
+          {
+            "url": "https://deepmind.google/blog/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology/",
+            "title": "deepmind.google"
+          },
+          {
+            "url": "https://github.com/google-deepmind/alphafold",
+            "title": "DeepMind: AlphaFold 2 repository, including CASP14 reproducibility notes"
+          },
+          {
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9184281/",
+            "title": "Mirdita et al.: ColabFold, making protein folding accessible to all (Nature Methods, 2022)"
+          }
+        ],
+        "runAt": "2026-11-07T23:34:54.745Z",
+        "model": "sonnet",
+        "provider": "claude-cli",
+        "toolVersion": "1.0.0"
+      },
+      "scorecard": {
+        "input": {
+          "claim": "our latest AlphaFold system achieves a median score of 92.4 GDT overall across all targets.",
+          "context": "DeepMind reported this result for AlphaFold 2 in CASP14, an assessment using protein structures withheld from participants before prediction. [1] DeepMind subsequently made AlphaFold 2 inference code and model parameters available in its public repository. [2] The independent ColabFold team reported matching AlphaFold 2 prediction quality on CASP14 targets using AlphaFold 2 with a different sequence-search pipeline. [3] The AlphaFold repository cautions that some CASP14 targets involved manual interventions and that reproducing the competition results requires the original database versions. [2]",
+          "sourceUrl": "https://deepmind.google/blog/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology/"
+        },
+        "verdict": "MIXED",
+        "overallScore": 65.8,
+        "dimensions": [
+          {
+            "dimension": "reproducibility",
+            "score": 68,
+            "inconclusive": false,
+            "confidence": 0.7,
+            "reasoning": "CASP14 was a blind, prospective test with published targets and independent scoring. DeepMind released code and parameters, and ColabFold independently reported matching quality. Against that, the repository says some targets involved manual intervention and that exact competition results need the original database versions. So the 92.4 figure cannot be reproduced bit for bit, and the blog gives no methodology. The capability is reproducible in spirit, but the exact number is only partly so."
+          },
+          {
+            "dimension": "evidence_quality",
+            "score": 78,
+            "inconclusive": false,
+            "confidence": 0.75,
+            "reasoning": "CASP14 is a community-run blind benchmark with independent assessors, which makes it much stronger evidence than a self-chosen demo. The weaknesses are that the cited source is a vendor blog, the median hides the distribution, 'all targets' is ambiguous (targets versus domains), and no confidence intervals are given. ColabFold's corroboration is real but is not an exact reproduction. The core number is well supported, and the surrounding framing is thinner."
+          },
+          {
+            "dimension": "scope_honesty",
+            "score": 55,
+            "inconclusive": false,
+            "confidence": 0.65,
+            "reasoning": "The literal claim is tied to a named benchmark and metric, which is honest. But 'overall across all targets' sits in a blog titled 'a solution to a 50-year-old grand challenge', which invites a broader reading. CASP14 is a small set of mostly single-chain domains. GDT_TS says nothing about side chains, complexes, disorder or dynamics. The median hides tail failures, and the manual interventions on some targets are not mentioned in the claim. The number is honest and the surrounding generalization is overstated."
+          },
+          {
+            "dimension": "production_readiness",
+            "score": 62,
+            "inconclusive": false,
+            "confidence": 0.55,
+            "reasoning": "The claim is only an accuracy benchmark and gives no latency, cost, reliability or governance data. Still, the code and weights were released and are widely used, and ColabFold gives a faster search pipeline. That shows real deployability for the technology. The competition result itself involved some manual steps and specific database versions, so it is not evidence of a hands-off production pipeline. Compute and MSA search costs go unstated."
+          },
+          {
+            "dimension": "novelty",
+            "score": 88,
+            "inconclusive": false,
+            "confidence": 0.8,
+            "reasoning": "AlphaFold 2's CASP14 result was a widely recognized step change over prior methods, including AlphaFold 1, with a large gap to the next-best entrant. It is not a wrapper or rebrand. ColabFold reuses the model with a different search front end, so it does not undercut the novelty. The claim text does not itself say what is new, and 'latest' is now stale, which takes off a little."
+          },
+          {
+            "dimension": "hidden_caveats",
+            "score": 50,
+            "inconclusive": false,
+            "confidence": 0.65,
+            "reasoning": "The claim leaves out several things: manual interventions on some targets, dependence on the original database versions, compute cost, and the median's hiding of low-scoring targets. It also omits that CASP14 targets are mostly single-chain domains with deep MSAs, and that 'latest' has lapsed. Some of these are disclosed in the AlphaFold repository, which helps. The headline number is real, but a reader of the claim alone would miss material caveats."
+          }
+        ],
+        "summary": "The claim states that DeepMind's latest AlphaFold system (AlphaFold 2 at CASP14) achieved a median GDT score of 92.4 across all targets in a blind structure-prediction assessment where experimentally determined structures were withheld from participants. The implied framing is that this near-experimental accuracy represents a breakthrough on the protein folding problem. The surrounding context adds that the code and weights were later publicly released, that ColabFold reportedly matched quality on CASP14 targets with a different sequence-search pipeline, and that the AlphaFold repository cautions that some CASP14 targets involved manual interventions and that reproducing competition results requires the original database versions.",
+        "assertions": [
+          {
+            "id": "a1",
+            "text": "AlphaFold 2 (the 'latest' system at the time of CASP14) achieved a median GDT_TS of 92.4 across all CASP14 targets.",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "reproducibility"
+            ]
+          },
+          {
+            "id": "a2",
+            "text": "The 92.4 median GDT score was measured on CASP14, an assessment using protein structures withheld from participants before prediction (i.e., a blind, prospective test).",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "reproducibility",
+              "scope_honesty"
+            ]
+          },
+          {
+            "id": "a3",
+            "text": "The 92.4 median is computed 'overall across all targets', implying it covers every CASP14 target without exclusion or cherry-picking.",
+            "testable": true,
+            "relatesTo": [
+              "scope_honesty",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a4",
+            "text": "The result was produced by the automated AlphaFold 2 system without manual intervention on any target.",
+            "testable": true,
+            "relatesTo": [
+              "hidden_caveats",
+              "reproducibility"
+            ]
+          },
+          {
+            "id": "a5",
+            "text": "The AlphaFold 2 system described is the 'latest' AlphaFold system (a currency claim), as opposed to a superseded version.",
+            "testable": true,
+            "relatesTo": [
+              "novelty",
+              "scope_honesty"
+            ]
+          },
+          {
+            "id": "a6",
+            "text": "The CASP14 result can be reproduced by independent parties using the publicly released AlphaFold 2 code and parameters.",
+            "testable": true,
+            "relatesTo": [
+              "reproducibility",
+              "production_readiness"
+            ]
+          },
+          {
+            "id": "a7",
+            "text": "Equivalent prediction quality on CASP14 targets is achievable with alternative pipelines such as ColabFold, which uses a different sequence-search method.",
+            "testable": true,
+            "relatesTo": [
+              "reproducibility",
+              "novelty",
+              "production_readiness"
+            ]
+          },
+          {
+            "id": "a8",
+            "text": "A median GDT of 92.4 implies the system generalizes to protein structure prediction broadly (beyond CASP14 targets), i.e., a solution to the protein folding problem.",
+            "testable": true,
+            "relatesTo": [
+              "scope_honesty",
+              "hidden_caveats",
+              "production_readiness"
+            ]
+          }
+        ],
+        "strongestSteelman": "The headline number is the best-documented part of the claim. DeepMind reported a median GDT_TS of 92.4 for AlphaFold 2 at CASP14, which is a blind, prospective assessment. The target structures were withheld from all participants until after predictions were submitted, and CASP's independent assessors scored them. That structure is much harder to game than a self-chosen benchmark, and it supports the 'across all targets' framing, since CASP scores the whole target set rather than a hand-picked subset. Post-competition developments also strengthen the case. DeepMind released AlphaFold 2 inference code and model parameters publicly, so independent parties can run the same model. The independent ColabFold team reported matching AlphaFold 2 prediction quality on CASP14 targets with a different sequence-search pipeline. That is evidence the capability is a property of the model and not of one tightly controlled setup. It was also a real step change. The context describes it as a blind-test result with independent follow-up, not a demo. The best case holds for the narrow claim: AlphaFold 2 scored a median GDT_TS of 92.4 on CASP14. It is weaker for the claims that this is the 'latest' system, that it was fully automated, that the exact result is reproducible, and that it generalizes to protein folding broadly.",
+        "strongestDebunk": "Hidden caveats (severity 58/100): The claim says 'across all targets' but omits that the CASP14 assessment and the AlphaFold repo itself note that some targets involved manual interventions, so the result was not purely automated end to end (contradicts a4).",
+        "model": "sonnet (via Claude CLI / subscription)",
+        "generatedAt": "2026-11-07T23:34:54.744Z"
+      }
+    },
+    {
+      "meta": {
+        "slug": "segment-anything-zero-shot",
+        "title": "Segment Anything's zero-shot transfer",
+        "claimant": "Meta",
+        "claimDate": "2023-04-05",
+        "sourceUrl": "https://arxiv.org/abs/2304.02643",
+        "sources": [
+          {
+            "url": "https://arxiv.org/abs/2304.02643",
+            "title": "arxiv.org"
+          },
+          {
+            "url": "https://github.com/facebookresearch/segment-anything",
+            "title": "Meta: Segment Anything inference code and trained model checkpoints"
+          },
+          {
+            "url": "https://arxiv.org/abs/2304.10517",
+            "title": "Mazurowski et al.: Segment Anything Model for Medical Image Analysis, an Experimental Study (2023)"
+          }
+        ],
+        "runAt": "2026-11-07T23:37:47.925Z",
+        "model": "sonnet",
+        "provider": "claude-cli",
+        "toolVersion": "1.0.0"
+      },
+      "scorecard": {
+        "input": {
+          "claim": "The model is designed and trained to be promptable, so it can transfer zero-shot to new image distributions and tasks.",
+          "context": "Meta's Segment Anything paper introduced a promptable image-segmentation model and a dataset containing over one billion masks on 11 million images. [1] The public SAM repository provides inference code, model checkpoints, example notebooks and an Apache 2.0 license. [2] An independent study by Mazurowski and colleagues evaluated SAM on 19 medical imaging datasets and found that it outperformed several interactive segmentation methods in almost all single-point prompt settings. [3] That study also found substantial variation between tasks, better performance with box prompts than point prompts, and limited or poor performance on some medical datasets. [3]",
+          "sourceUrl": "https://arxiv.org/abs/2304.02643"
+        },
+        "verdict": "MIXED",
+        "overallScore": 60.6,
+        "dimensions": [
+          {
+            "dimension": "reproducibility",
+            "score": 72,
+            "inconclusive": false,
+            "confidence": 0.7,
+            "reasoning": "Weights, inference code, notebooks and an Apache 2.0 license are public, and an independent group (Mazurowski et al.) actually ran SAM on 19 medical datasets, so the zero-shot behavior is independently checkable and not a cherry-picked demo. Training and the model-in-the-loop data engine are impractical to reproduce, and training code is not listed. Results also depend on prompt simulation choices. The 'new tasks' part has no independent replication in the context. Inference-level reproducibility is strong; full pipeline reproducibility is weak."
+          },
+          {
+            "dimension": "evidence_quality",
+            "score": 62,
+            "inconclusive": false,
+            "confidence": 0.6,
+            "reasoning": "There is real evidence: a peer-reviewed paper with a broad zero-shot evaluation, and a third-party study on 19 medical datasets showing out-of-distribution wins on single-point prompts. The context supplies no numbers, named baselines or metrics, and most evidence is first-party. The independent evidence is mixed and covers one domain. It supports transfer to new image distributions better than transfer to new tasks, and it does not isolate promptability as the cause. Credible but thinly documented here."
+          },
+          {
+            "dimension": "scope_honesty",
+            "score": 50,
+            "inconclusive": false,
+            "confidence": 0.6,
+            "reasoning": "The claim is worded as capability ('can transfer'), which fits the evidence loosely. But 'new tasks' reaches past promptable segmentation, which is what the independent evidence covers. The only independent out-of-distribution study shows large task variance, a dependence on prompt type, and poor results on some datasets. The context states these limits, which is more honest than the bare claim. The causal 'promptable, so transfers' link is asserted without an ablation separating it from data scale. Generalization is real but overstated by the unqualified phrasing."
+          },
+          {
+            "dimension": "production_readiness",
+            "score": null,
+            "inconclusive": true,
+            "confidence": 0.5,
+            "reasoning": "The claim is about design and zero-shot capability, not deployment, and the context has no latency, cost, hardware or reliability data. Open checkpoints and a permissive license show experimental accessibility, not deployability. The independent study's task-to-task variation and poor results on some datasets suggest per-domain validation would be needed, but that is indirect evidence about a dimension the claim does not address, so no number is justified."
+          },
+          {
+            "dimension": "novelty",
+            "score": 72,
+            "inconclusive": false,
+            "confidence": 0.65,
+            "reasoning": "SAM is not a wrapper or rebrand. It combined a promptable segmentation task, a large model and a dataset of over a billion masks, a clear jump in scale and generality over earlier interactive segmentation methods. The prompt-based idea builds on prior interactive segmentation and borrows from NLP prompting, so part of the novelty is reframing and scaling. The independent medical study shows the zero-shot capability is real, though uneven. The context has no head-to-head comparison against earlier promptable models to isolate exactly what is new."
+          },
+          {
+            "dimension": "hidden_caveats",
+            "score": 50,
+            "inconclusive": false,
+            "confidence": 0.55,
+            "reasoning": "The claim as phrased omits uneven transfer, the box-over-point prompt dependence, poor results on some datasets, compute needs, ambiguity and the missing semantic labels. The supplied context does surface the main performance caveats, and the paper discusses limitations, so this is incomplete disclosure and not concealment. Cost, latency and data bias or licensing go unmentioned. A middling score fits: caveats are findable but not in the claim."
+          }
+        ],
+        "summary": "The claim asserts that SAM, a model deliberately designed and trained to accept prompts, can generalize zero-shot to unseen image distributions and segmentation tasks without retraining. The supporting context cites the original paper (a promptable model plus a very large mask dataset), a public repository with code, checkpoints, notebooks and a permissive license, and an independent medical-imaging evaluation. That evaluation reports strong results against interactive baselines in single-point settings, but also large variation across tasks, a box-prompt advantage, and weak performance on some datasets. Together, these make the breadth of the zero-shot transfer claim the central thing to test.",
+        "assertions": [
+          {
+            "id": "a1",
+            "text": "The model (SAM) is designed and trained to be promptable.",
+            "testable": true,
+            "relatesTo": [
+              "novelty",
+              "evidence_quality"
+            ]
+          },
+          {
+            "id": "a2",
+            "text": "Because it is promptable, the model can transfer zero-shot to new image distributions.",
+            "testable": true,
+            "relatesTo": [
+              "scope_honesty",
+              "evidence_quality",
+              "reproducibility",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a3",
+            "text": "Because it is promptable, the model can transfer zero-shot to new tasks.",
+            "testable": true,
+            "relatesTo": [
+              "scope_honesty",
+              "evidence_quality",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a4",
+            "text": "The paper introduced a promptable image-segmentation model together with a dataset of over one billion masks on 11 million images.",
+            "testable": true,
+            "relatesTo": [
+              "novelty",
+              "evidence_quality",
+              "reproducibility"
+            ]
+          },
+          {
+            "id": "a5",
+            "text": "The public SAM repository provides inference code, model checkpoints, example notebooks and an Apache 2.0 license.",
+            "testable": true,
+            "relatesTo": [
+              "reproducibility",
+              "production_readiness"
+            ]
+          },
+          {
+            "id": "a6",
+            "text": "An independent study (Mazurowski et al.) evaluated SAM on 19 medical imaging datasets and found it outperformed several interactive segmentation methods in almost all single-point prompt settings.",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "scope_honesty",
+              "reproducibility"
+            ]
+          },
+          {
+            "id": "a7",
+            "text": "The same study found substantial performance variation between tasks, better results with box prompts than point prompts, and limited or poor performance on some medical datasets.",
+            "testable": true,
+            "relatesTo": [
+              "hidden_caveats",
+              "scope_honesty",
+              "evidence_quality"
+            ]
+          }
+        ],
+        "strongestSteelman": "The claim is the central, well-documented thesis of a widely cited, peer-reviewed (ICCV 2023) paper, and it is backed by shipped, inspectable artifacts. The paper introduces a promptable segmentation model (point/box/mask prompts) together with the SA-1B dataset of over one billion masks on 11 million images. Training on that scale with a prompt-based objective is a coherent mechanism for zero-shot transfer, because the prompt supplies task specification at inference time rather than through fine-tuning. The public repo, with inference code, checkpoints, example notebooks and an Apache 2.0 license, lets anyone try to reproduce or extend the work. The independent Mazurowski et al. study did not just echo the authors. It tested SAM on 19 medical imaging datasets, a distribution far from natural images. It found SAM beat several interactive segmentation methods in almost all single-point settings, which is genuine independent evidence of out-of-distribution transfer. The same study reports honest limits: wide variation between tasks, box prompts beating point prompts, and poor results on some datasets. That pattern fits the claim as stated, which is 'can transfer', not 'transfers uniformly or perfectly'. The claim is also narrow: it concerns design intent and a capability for zero-shot transfer, and it does not promise clinical-grade or universal performance. Read that way, it is well supported. Caveat: this is the best case. Transfer is uneven, and the evidence here covers one independent domain (medical imaging) and mainly segmentation, so 'new tasks' is supported less than 'new image distributions'.",
+        "strongestDebunk": "Scope honesty (severity 58/100): The claim generalizes from 'designed to be promptable' to 'transfers zero-shot to new image distributions and tasks' with no qualifier on how far or how reliably. The 'tasks' scope is much broader than the evidence supports. The evidence covers promptable segmentation, not arbitrary new tasks.",
+        "model": "sonnet (via Claude CLI / subscription)",
+        "generatedAt": "2026-11-07T23:37:47.925Z"
+      }
+    },
+    {
+      "meta": {
+        "slug": "whisper-open-speech-recognition",
+        "title": "Whisper's speech recognition release",
+        "claimant": "OpenAI",
+        "claimDate": "2022-09-21",
+        "sourceUrl": "https://openai.com/index/whisper/",
+        "sources": [
+          {
+            "url": "https://openai.com/index/whisper/",
+            "title": "openai.com"
+          },
+          {
+            "url": "https://github.com/openai/whisper",
+            "title": "OpenAI: Whisper code, model usage and license"
+          },
+          {
+            "url": "https://www.isca-archive.org/interspeech_2023/olivier23_interspeech.html",
+            "title": "Olivier and Raj: There is more than one kind of robustness, Fooling Whisper with adversarial examples (Interspeech 2023)"
+          },
+          {
+            "url": "https://arxiv.org/abs/2402.08021",
+            "title": "Koenecke et al.: Careless Whisper, Speech-to-Text Hallucination Harms (2024)"
+          }
+        ],
+        "runAt": "2026-11-07T23:34:56.591Z",
+        "model": "sonnet",
+        "provider": "claude-cli",
+        "toolVersion": "1.0.0"
+      },
+      "scorecard": {
+        "input": {
+          "claim": "We’ve trained and are open-sourcing a neural net called Whisper that approaches human level robustness and accuracy on English speech recognition.",
+          "context": "OpenAI announced Whisper with models and inference code, describing training on 680,000 hours of multilingual audio and acknowledging that it did not outperform specialized models on LibriSpeech. [1] Its public repository supplies transcription code and releases code and model weights under the MIT license. [2] Independent researchers Olivier and Raj evaluated Whisper, finding robustness to random noise but susceptibility to deliberately constructed adversarial audio perturbations. [3] A separate study by Koenecke and colleagues found many accurate transcriptions alongside invented phrases or sentences in roughly 1% of transcriptions in their evaluated sample, with higher hallucination rates for speech containing longer pauses. [4]",
+          "sourceUrl": "https://openai.com/index/whisper/"
+        },
+        "verdict": "MIXED",
+        "overallScore": 53,
+        "dimensions": [
+          {
+            "dimension": "reproducibility",
+            "score": 72,
+            "inconclusive": false,
+            "confidence": 0.7,
+            "reasoning": "The code and weights are MIT-licensed and public, and independent groups (Olivier and Raj, Koenecke et al.) have run their own evaluations, so this is not a cherry-picked demo. Training data is not released, and the human-parity comparison is hard to replicate from the provided context. WER also depends on the normalizer and decoding settings. Inference is reproducible, but the headline human-level comparison is only partly so."
+          },
+          {
+            "dimension": "evidence_quality",
+            "score": 50,
+            "inconclusive": false,
+            "confidence": 0.6,
+            "reasoning": "The context confirms concrete facts: the 680k-hour training set, the open release, and the admitted LibriSpeech gap. It contains no human-baseline numbers or benchmark tables supporting 'approaches human level', so the core comparative claim rests on the vendor's own announcement. Independent studies show fragility (adversarial perturbation, about 1% hallucination) that WER-style metrics miss. They are narrow and don't directly refute the claim. Evidence exists but does not directly back the headline."
+          },
+          {
+            "dimension": "scope_honesty",
+            "score": 45,
+            "inconclusive": false,
+            "confidence": 0.6,
+            "reasoning": "The wording 'approaches' is hedged, and OpenAI openly admits it did not beat specialized models on LibriSpeech, which counts in its favor. Even so, 'human level robustness and accuracy' is a broad framing. Independent work shows robustness holds for random noise but not adversarial perturbation, and hallucinations occur with long pauses, a failure mode humans don't show. Nothing in the context shows the claim generalizes to specialized domains, heavy accents or overlapping speech."
+          },
+          {
+            "dimension": "production_readiness",
+            "score": 50,
+            "inconclusive": false,
+            "confidence": 0.55,
+            "reasoning": "The open weights and MIT license make Whisper self-hostable and widely deployable, and about 99% of transcriptions in the Koenecke sample were free of hallucination. The announcement gives no latency, cost or throughput figures, and no confidence signals or governance guidance. Fabricated content in roughly 1% of transcriptions, concentrated in pauses, and adversarial susceptibility are real concerns for high-stakes use. It is usable with guardrails, but it is a research release and not a production service."
+          },
+          {
+            "dimension": "novelty",
+            "score": 58,
+            "inconclusive": false,
+            "confidence": 0.6,
+            "reasoning": "Whisper is a real, self-trained model and not a wrapper or rebrand. Its advance comes from weakly supervised training at scale (680k hours) and from combining multilingual ASR, translation and language ID in one zero-shot-robust model, not from a new architecture. Prior systems such as wav2vec 2.0 and commercial ASR already performed well. Open release is a distribution choice, not a technical advance. This is a meaningful but incremental advance."
+          },
+          {
+            "dimension": "hidden_caveats",
+            "score": 42,
+            "inconclusive": false,
+            "confidence": 0.6,
+            "reasoning": "The vendor volunteered the LibriSpeech gap, which counts in its favor. The announcement does not surface the hallucination rate (about 1%, higher with long pauses) or adversarial fragility, and those came from third parties. It also gives no cost or latency figures, no subgroup error rates, no definition of the human baseline, and no information on data provenance or training-data release. These omissions are material, though the claim is hedged and the measured hallucination rate is modest."
+          }
+        ],
+        "summary": "OpenAI claims to have trained and open-sourced Whisper, a neural network for speech recognition trained on 680,000 hours of multilingual audio, and asserts it approaches human-level robustness and accuracy on English speech recognition. The supporting context notes that models, inference code, and weights are released under the MIT license, that Whisper did not beat specialized models on LibriSpeech, that independent researchers found it robust to random noise but vulnerable to adversarial perturbations, and that another study found hallucinated content in about 1% of transcriptions, more often with long pauses. Overall, the claim combines a verifiable release/training-data statement with a broader, comparative capability claim (human-level robustness and accuracy) that depends on the benchmarks, conditions, and human baselines used.",
+        "assertions": [
+          {
+            "id": "a1",
+            "text": "OpenAI trained a neural network called Whisper for English speech recognition.",
+            "testable": true,
+            "relatesTo": [
+              "novelty",
+              "reproducibility"
+            ]
+          },
+          {
+            "id": "a2",
+            "text": "Whisper approaches human-level robustness on English speech recognition (e.g., across noise, accents, and varied audio conditions).",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "scope_honesty",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a3",
+            "text": "Whisper approaches human-level accuracy on English speech recognition (e.g., word error rate comparable to human transcribers).",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "scope_honesty",
+              "reproducibility"
+            ]
+          },
+          {
+            "id": "a4",
+            "text": "Whisper was trained on 680,000 hours of multilingual audio data.",
+            "testable": false,
+            "relatesTo": [
+              "reproducibility",
+              "scope_honesty"
+            ]
+          },
+          {
+            "id": "a5",
+            "text": "Whisper models and inference code are open-sourced and publicly available, with code and weights released under the MIT license.",
+            "testable": true,
+            "relatesTo": [
+              "reproducibility",
+              "production_readiness"
+            ]
+          },
+          {
+            "id": "a6",
+            "text": "Whisper did not outperform specialized models on LibriSpeech (a limitation acknowledged by OpenAI).",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "scope_honesty",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a7",
+            "text": "Independent evaluation found Whisper robust to random noise but susceptible to deliberately constructed adversarial audio perturbations.",
+            "testable": true,
+            "relatesTo": [
+              "hidden_caveats",
+              "production_readiness",
+              "evidence_quality"
+            ]
+          },
+          {
+            "id": "a8",
+            "text": "Independent study (Koenecke et al.) found Whisper produces invented phrases or sentences (hallucinations) in roughly 1% of transcriptions in the evaluated sample, with higher rates for speech containing longer pauses.",
+            "testable": true,
+            "relatesTo": [
+              "hidden_caveats",
+              "production_readiness",
+              "scope_honesty"
+            ]
+          },
+          {
+            "id": "a9",
+            "text": "Whisper's robustness and accuracy generalize beyond the benchmarks and conditions reported, i.e., the headline claim holds as a general capability rather than only on selected evaluations.",
+            "testable": true,
+            "relatesTo": [
+              "scope_honesty",
+              "evidence_quality",
+              "reproducibility"
+            ]
+          }
+        ],
+        "strongestSteelman": "Whisper is a real, shipped, publicly verifiable system, not a demo. The code and weights were released under the MIT license, so anyone can download them and run their own evaluations. That is the strongest form of reproducibility, and the independent studies in the context (Olivier and Raj, Koenecke et al.) exist only because of it. The claim is also worded carefully: 'approaches' human-level, not 'matches' or 'exceeds'. The framing is robustness, meaning zero-shot performance across diverse conditions, rather than a record on a single benchmark. OpenAI backs this up by conceding that Whisper did not beat specialized models on LibriSpeech. A vendor that volunteers a benchmark where it lost is not cherry-picking in the usual way. The training scale (680,000 hours of weakly supervised audio) is a concrete, checkable design choice that plausibly explains broader robustness than models fit to one clean corpus. The independent evidence is mixed but not damning for the core claim. Robustness to random noise is consistent with the robustness claim. A roughly 1% hallucination rate in the Koenecke sample means most transcriptions were accurate, and that rate is low enough for many practical uses. Adversarial perturbation is a threat model that human-level robustness claims do not normally cover, since humans are not tested against adversarial audio either. Overall, the best case is that this is a genuine, widely usable, open release whose headline is a defensible approximation within the English conditions OpenAI tested. The best case is much weaker for the generalization assertion (a9). Nothing in the provided evidence shows the claim holding beyond the reported benchmarks, and the hallucination findings, which are higher on speech with longer pauses, point the other way. The 'human-level' comparison also rests on OpenAI's own evaluations, with no independent confirmation in the context.",
+        "strongestDebunk": "Scope honesty (severity 62/100): Headline says 'human level robustness and accuracy' on English speech recognition, but the evidence is selected benchmarks. The gap between those benchmarks and general real-world audio is not quantified.",
+        "model": "sonnet (via Claude CLI / subscription)",
+        "generatedAt": "2026-11-07T23:34:56.591Z"
+      }
+    },
+    {
+      "meta": {
+        "slug": "gpt4-bar-exam-percentile",
+        "title": "GPT-4's top-decile bar exam claim",
+        "claimant": "OpenAI",
+        "claimDate": "2023-03-14",
+        "sourceUrl": "https://openai.com/index/gpt-4-research/",
+        "sources": [
+          {
+            "url": "https://openai.com/index/gpt-4-research/",
+            "title": "openai.com"
+          },
+          {
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10894685/",
+            "title": "Katz et al.: GPT-4 passes the bar exam (published 2024)"
+          },
+          {
+            "url": "https://law-ai.org/re-evaluating-gpt-4s-bar-exam-performance/",
+            "title": "Martínez: Re-Evaluating GPT-4's Bar Exam Performance"
+          }
+        ],
+        "runAt": "2026-11-07T23:37:41.540Z",
+        "model": "sonnet",
+        "provider": "claude-cli",
+        "toolVersion": "1.0.0"
+      },
+      "scorecard": {
+        "input": {
+          "claim": "it passes a simulated bar exam with a score around the top 10% of test takers",
+          "context": "OpenAI made this comparison when releasing GPT-4 text capabilities through ChatGPT and an API waitlist. [1] Katz and colleagues reported a simulated Uniform Bar Examination score of approximately 297, above the passing thresholds they considered; their paper acknowledges assistance from OpenAI. [2] Their published discussion places the score between approximately the 68th and 90th percentiles depending on the jurisdiction and exam administration used for comparison. [2] Eric Martínez's re-evaluation replicated the multiple-choice score but challenged the essay grading and comparison population, estimating approximately the 62nd percentile against first-time test takers. [3]",
+          "sourceUrl": "https://openai.com/index/gpt-4-research/"
+        },
+        "verdict": "MIXED",
+        "overallScore": 46.1,
+        "dimensions": [
+          {
+            "dimension": "reproducibility",
+            "score": 50,
+            "inconclusive": false,
+            "confidence": 0.6,
+            "reasoning": "The multiple-choice result was independently replicated by Martínez, which is real reproducibility evidence for the core exam ability. But the headline percentile depends on essay grading by the study authors (not official bar graders) and on the comparison population. The independent re-evaluation lands at about the 62nd percentile, well short of the 90th. Vendor involvement, a possibly pre-release model, no published exact prompts, and unruled-out contamination limit third-party reproduction of the 'top 10%' figure. Partial reproducibility of the pass, weak reproducibility of the percentile."
+          },
+          {
+            "dimension": "evidence_quality",
+            "score": 52,
+            "inconclusive": false,
+            "confidence": 0.6,
+            "reasoning": "There is quantitative data: a published study with a ~297 simulated UBE score, a stated 68th–90th percentile range, and an independent replication of the MCQ portion. That is well above screenshots and vibes. But the cited headline is the top of the range, the supporting paper acknowledges OpenAI help, essay grading was non-official and contested, and the population choice moves the percentile a lot. Run variance and contamination are undocumented. The evidence supports 'passes and lands above the median' much better than 'top 10%'."
+          },
+          {
+            "dimension": "scope_honesty",
+            "score": 38,
+            "inconclusive": false,
+            "confidence": 0.65,
+            "reasoning": "The claim picks the most flattering end of a published range and drops the dependence on jurisdiction, administration and comparison population. The one independent estimate against first-time takers is ~62nd percentile, so the framing overstates standing. A simulated exam is also a narrow proxy that invites an implied leap to general legal competence, with no evidence on real legal tasks. The underlying capability is real, which keeps this above theater, but the headline is selectively framed."
+          },
+          {
+            "dimension": "production_readiness",
+            "score": 35,
+            "inconclusive": false,
+            "confidence": 0.5,
+            "reasoning": "The claim is a capability benchmark, not a deployment claim, so low production evidence is partly expected. Even so, there is no data on cost, latency, run-to-run variance, failure modes such as hallucinated citations, or governance for legal use. Nothing ties the tested configuration to the deployed ChatGPT/API model. Public availability shows access, not readiness. A deployment decision could not responsibly rest on the 'top 10%' headline."
+          },
+          {
+            "dimension": "novelty",
+            "score": 68,
+            "inconclusive": false,
+            "confidence": 0.6,
+            "reasoning": "GPT-4 clearly outperformed GPT-3.5 on this task, and the MCQ result replicated. This is a real capability improvement, not a wrapper or rebrand. The size is inflated by the percentile framing, and the likely cause is scaling gains rather than a new technique. Contamination was not ruled out, and no architecture or training detail was disclosed, so attributing the advance is hard. Moderate-to-good credit for a genuine but overstated step up."
+          },
+          {
+            "dimension": "hidden_caveats",
+            "score": 40,
+            "inconclusive": false,
+            "confidence": 0.6,
+            "reasoning": "The headline omits the 68th–90th range, the population effect that yields ~62nd against first-time takers, author-graded essays, OpenAI's role in the study, possible contamination, run variance and the tested-versus-deployed model question. It also says nothing about failure modes such as hallucinated citations. Some of these appear in the published paper, and there is no fabrication, since the underlying score is partly replicated. Still, the omissions are material and consistently make the claim look better."
+          }
+        ],
+        "summary": "The claim, made by OpenAI at the release of GPT-4's text capabilities, is that the model passes a simulated bar exam with a score in about the top 10% of human test takers. Context indicates this rests on a simulated Uniform Bar Examination score of about 297 reported by Katz et al., a paper with OpenAI assistance, which placed the score between roughly the 68th and 90th percentiles depending on the comparison. A later re-evaluation by Martínez replicated the multiple-choice result but disputed the essay grading and the comparison population, estimating about the 62nd percentile against first-time test takers. The claim therefore bundles a passing-score assertion, a percentile-rank assertion that depends on population choice, and an implicit generalization to legal competence. It also carries questions about vendor involvement and reproducibility.",
+        "assertions": [
+          {
+            "id": "a1",
+            "text": "GPT-4 passes a simulated bar exam (the Uniform Bar Examination), i.e., achieves a score above the passing thresholds.",
+            "testable": true,
+            "relatesTo": [
+              "reproducibility",
+              "evidence_quality"
+            ]
+          },
+          {
+            "id": "a2",
+            "text": "GPT-4's simulated bar exam score falls around the top 10% of test takers (roughly the 90th percentile).",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "scope_honesty",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a3",
+            "text": "The simulated exam result (approx. UBE score of 297) is a valid, representative measure of the model's legal competence, i.e., the result generalizes beyond the specific exam setup.",
+            "testable": true,
+            "relatesTo": [
+              "scope_honesty",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a4",
+            "text": "The percentile comparison is made against an appropriate population of human test takers (e.g., all takers vs. first-time takers, specific jurisdiction and administration).",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "scope_honesty",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a5",
+            "text": "The essay (written) portions were graded in a way that fairly reflects human bar-exam grading standards.",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "reproducibility",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a6",
+            "text": "The result is independently reproducible: third parties can obtain the same multiple-choice and overall scores with the model.",
+            "testable": true,
+            "relatesTo": [
+              "reproducibility",
+              "evidence_quality"
+            ]
+          },
+          {
+            "id": "a7",
+            "text": "The capability represents a genuine advance over prior models (GPT-3.5 reportedly scored far lower, around the bottom 10%).",
+            "testable": true,
+            "relatesTo": [
+              "novelty"
+            ]
+          },
+          {
+            "id": "a8",
+            "text": "The evaluation was conducted without undue influence or conflict of interest (the supporting study acknowledges OpenAI assistance, and the claim originates from the model vendor).",
+            "testable": false,
+            "relatesTo": [
+              "evidence_quality",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a9",
+            "text": "The model's performance is available to users through ChatGPT and an API waitlist, implying the tested capability is accessible in a deployed form, though it is unclear whether the tested configuration matches deployed behavior.",
+            "testable": true,
+            "relatesTo": [
+              "production_readiness",
+              "hidden_caveats"
+            ]
+          }
+        ],
+        "strongestSteelman": "This is one of the better-documented capability claims in the GPT-4 launch. The headline is backed by a named, peer-reviewed-style external study (Katz et al.) that reports a concrete simulated UBE score of about 297, above the passing cutoffs they considered. The multiple-choice portion is objective and was independently replicated by Martínez, a skeptic who set out to challenge the result. Even that critical re-evaluation puts GPT-4 at about the 62nd percentile against first-time takers, which is still a passing score and a clear step up from GPT-3.5's reported bottom-10% result. The 'top 10%' figure is the optimistic end of a published 68th–90th percentile range. So the real finding is 'passes, and lands well above the median'. The model was also released to the public through ChatGPT and an API waitlist, so users could try the capability themselves.",
+        "strongestDebunk": "Scope honesty (severity 68/100): Headline 'top 10%' is the most favorable end of a 68th–90th percentile range; the claim omits the range and the dependence on jurisdiction and administration.",
+        "model": "sonnet (via Claude CLI / subscription)",
+        "generatedAt": "2026-11-07T23:37:41.540Z"
+      }
+    },
+    {
+      "meta": {
+        "slug": "galactica-scientific-knowledge",
+        "title": "Galactica's scientific knowledge claim",
+        "claimant": "Meta",
+        "claimDate": "2022-11-16",
+        "sourceUrl": "https://arxiv.org/abs/2211.09085",
+        "sources": [
+          {
+            "url": "https://arxiv.org/abs/2211.09085",
+            "title": "arxiv.org"
+          },
+          {
+            "url": "https://arstechnica.com/information-technology/2022/11/after-controversy-meta-pulls-demo-of-ai-model-that-writes-scientific-papers/",
+            "title": "Ars Technica: New Meta AI demo writes racist and inaccurate scientific literature, gets pulled (2022-11-18)"
+          },
+          {
+            "url": "https://github.com/paperswithcode/galai",
+            "title": "Papers with Code: GALACTICA model API and available model sizes"
+          }
+        ],
+        "runAt": "2026-11-07T23:44:00.365Z",
+        "model": "sonnet",
+        "provider": "claude-cli",
+        "toolVersion": "1.0.0"
+      },
+      "scorecard": {
+        "input": {
+          "claim": "In this paper we introduce Galactica: a large language model that can store, combine and reason about scientific knowledge.",
+          "context": "The Galactica paper, submitted on November 16, 2022, reports training on scientific material and benchmark results on scientific question answering, mathematics and other tasks. [1] Meta also released a public web demonstration that could produce literature reviews and other scientific text, according to contemporaneous reporting by Ars Technica. [2] Ars reported that the demonstration generated factual inaccuracies and fabricated scientific material and was taken offline within days of launch. [2] The authors' public repository still provides model-loading instructions and lists five model sizes, so withdrawal of the hosted demonstration did not amount to removal of all access to the models. [3]",
+          "sourceUrl": "https://arxiv.org/abs/2211.09085"
+        },
+        "verdict": "THEATER",
+        "overallScore": 38.6,
+        "dimensions": [
+          {
+            "dimension": "reproducibility",
+            "score": 55,
+            "inconclusive": false,
+            "confidence": 0.55,
+            "reasoning": "Open weights in five sizes with loading instructions allow independent inference and benchmark re-testing, which is a real positive. Against that, the headline claim ('store, combine and reason') has no single reproducible test, the hosted demo was withdrawn, and training-level reproduction is not shown to be feasible. No independent replication of the paper's numbers is cited. Partial reproducibility is credible, so the score is moderate."
+          },
+          {
+            "dimension": "evidence_quality",
+            "score": 42,
+            "inconclusive": false,
+            "confidence": 0.5,
+            "reasoning": "The paper reports benchmarks on scientific QA and mathematics, which is better than anecdote. But the supplied context has no numbers, baselines or independent replication, so strength can't be judged. The Ars Technica report of fabricated content and the quick takedown cut directly against 'store' and 'combine'. Benchmark results and open-ended behavior diverged, which indicates weak evidence-to-claim alignment. The score sits below the midpoint, not at the floor, because real benchmarks exist."
+          },
+          {
+            "dimension": "scope_honesty",
+            "score": 38,
+            "inconclusive": false,
+            "confidence": 0.55,
+            "reasoning": "The claim is worded as broad scientific competence with no domains or limits stated. The open-ended 'combine' use case (literature reviews, wiki articles) failed in public, which contradicts the generalization the wording implies. In the paper's favor, it is framed as introducing a research model, it is bounded to 'scientific knowledge', and it reports benchmarks. The missing per-domain breakdown and limitations keep the score low-to-moderate."
+          },
+          {
+            "dimension": "production_readiness",
+            "score": 15,
+            "inconclusive": false,
+            "confidence": 0.7,
+            "reasoning": "The only real deployment attempt, the public demo, was pulled within days after producing fabricated and inaccurate scientific text. The context shows no guardrails, governance, cost or latency figures, or reliability metrics. Open weights are access, not deployability. The paper is a research contribution and does not strictly claim production readiness, which keeps the score above zero."
+          },
+          {
+            "dimension": "novelty",
+            "score": 48,
+            "inconclusive": false,
+            "confidence": 0.5,
+            "reasoning": "Galactica is a real but incremental contribution. It uses a standard Transformer, with novelty mainly in the curated scientific corpus, special tokenization for citations, reasoning and sequences, and open release. Domain scientific LLMs and Minerva existed already, and general LLMs already showed these capabilities. It is not a pure rebrand, but the context shows no isolated new capability, so the score is mid-range."
+          },
+          {
+            "dimension": "hidden_caveats",
+            "score": 30,
+            "inconclusive": false,
+            "confidence": 0.6,
+            "reasoning": "The one-line framing omits the central failure mode: confident hallucination and fabricated citations, shown by the demo. It also gives no error rates, domain limits, cost or latency, or contamination caveats. Some credit is due because the full paper likely has a limitations section, which was not verified, and because the model remains accessible and testable. The well-evidenced gap between implied reliability and observed behavior keeps the score low."
+          }
+        ],
+        "summary": "The paper claims that Galactica, a large language model trained on scientific material, can store, combine and reason about scientific knowledge. The framing is broad and general-purpose across science. The context says the paper reports benchmark results on scientific question answering, mathematics and other tasks. It also says Meta released a public demo that generated literature reviews and scientific text. Contemporaneous reporting says the demo produced factual inaccuracies and fabricated scientific material and was taken offline within days. The model weights and loading instructions remain publicly available in five sizes. Overall, the claim joins a headline capability statement to benchmark evidence and a demo that reportedly failed on factual reliability.",
+        "assertions": [
+          {
+            "id": "a1",
+            "text": "Galactica is a large language model (LLM) introduced in this paper.",
+            "testable": true,
+            "relatesTo": [
+              "novelty",
+              "reproducibility"
+            ]
+          },
+          {
+            "id": "a2",
+            "text": "Galactica can store scientific knowledge, i.e., it retains accurate scientific facts in its parameters that can be recalled when queried.",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "scope_honesty",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a3",
+            "text": "Galactica can combine scientific knowledge, i.e., it can synthesize information across multiple sources or domains into coherent, correct outputs (e.g., literature reviews, wiki-style articles).",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "scope_honesty",
+              "hidden_caveats",
+              "production_readiness"
+            ]
+          },
+          {
+            "id": "a4",
+            "text": "Galactica can reason about scientific knowledge, e.g., it can perform mathematical and scientific reasoning and answer scientific questions beyond memorization.",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "scope_honesty",
+              "novelty"
+            ]
+          },
+          {
+            "id": "a5",
+            "text": "The model's capabilities generalize across scientific domains and task types, rather than being limited to specific benchmarks (implied by the general framing 'scientific knowledge').",
+            "testable": true,
+            "relatesTo": [
+              "scope_honesty",
+              "evidence_quality",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a6",
+            "text": "Galactica's performance on benchmarks (scientific QA, mathematics, and other tasks) supports the claimed capabilities, as reported in the paper.",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "reproducibility"
+            ]
+          },
+          {
+            "id": "a7",
+            "text": "The model is reliable enough for real-world scientific use, such as generating literature reviews and scientific text (implied by the public demo), with outputs that are factually trustworthy.",
+            "testable": true,
+            "relatesTo": [
+              "production_readiness",
+              "hidden_caveats",
+              "evidence_quality"
+            ]
+          },
+          {
+            "id": "a8",
+            "text": "The model and training approach can be independently accessed and reproduced; the authors' repository provides model-loading instructions and five model sizes.",
+            "testable": true,
+            "relatesTo": [
+              "reproducibility"
+            ]
+          }
+        ],
+        "strongestSteelman": "The best defensible case is that Galactica is real, documented research with released artifacts, and that its core claim is a modest, research-level one that the evidence partly supports. It is not a claim of a deployable, trustworthy scientific assistant, and that part fails. The paper is a primary source, submitted November 16, 2022. It reports training on scientific material and results on scientific QA, mathematics and other tasks. The authors' repository still gives model-loading instructions and lists five model sizes. So 'introduce an LLM' (a1) and 'independently accessible' (a8) are well supported. 'Store, combine and reason' reads as a capability claim about a research model, and benchmark results are the right kind of evidence for it. The scope is also bounded: it says 'scientific knowledge', not general intelligence. The main weakness is that the public demo did not hold up. Ars Technica reported factual inaccuracies and fabricated scientific material, and the demo was pulled within days. That undercuts a7 and weakens the 'combine' claim as shown by literature reviews and wiki-style text. Even so, the demo is a stress test of open-ended generation, which is a harder setting than the benchmarks. Benchmark competence and open-ended hallucination are separable findings, and the context does not show the benchmark results to be false. Releasing a public demo was also a transparent test, and it exposed the model's limits quickly.",
+        "strongestDebunk": "Production-readiness (severity 82/100): The public demo was pulled within days of launch after producing factual inaccuracies and fabricated scientific material (hallucinated citations and wiki-style articles). This is direct evidence of a failure to meet deployment reliability.",
+        "model": "sonnet (via Claude CLI / subscription)",
+        "generatedAt": "2026-11-07T23:44:00.365Z"
+      }
+    },
+    {
+      "meta": {
+        "slug": "devin-swe-bench-launch",
+        "title": "Devin's SWE-bench launch result",
+        "claimant": "Cognition",
+        "claimDate": "2024-03-12",
+        "sourceUrl": "https://cognition.com/blog/introducing-devin",
+        "sources": [
+          {
+            "url": "https://cognition.com/blog/introducing-devin",
+            "title": "cognition.com"
+          },
+          {
+            "url": "https://www.answer.ai/posts/2025-01-08-devin.html",
+            "title": "Husain, Flath and Whitaker: Thoughts On A Month With Devin (Answer.AI, 2025-01-08)"
+          }
+        ],
+        "runAt": "2026-11-07T23:41:31.698Z",
+        "model": "sonnet",
+        "provider": "claude-cli",
+        "toolVersion": "1.0.0"
+      },
+      "scorecard": {
+        "input": {
+          "claim": "Devin correctly resolves 13.86%* of the issues end-to-end, far exceeding the previous state-of-the-art of 1.96%.",
+          "context": "Cognition introduced Devin as an AI software engineer and published demonstrations of coding, debugging and repository maintenance. [1] The launch announcement says its SWE-bench evaluation used a random 25% subset, with Devin unassisted and comparison models given the files to edit. [1] The announcement offered early access through a waitlist rather than unrestricted access. [1] In January 2025, Answer.AI published a hands-on evaluation reporting three successes, fourteen failures and three inconclusive outcomes across twenty tasks, including successful setup work and failures involving existing projects. [2] Answer.AI's tasks were a separate product evaluation rather than a reproduction of Cognition's original SWE-bench experiment. [1][2]",
+          "sourceUrl": "https://cognition.com/blog/introducing-devin"
+        },
+        "verdict": "THEATER",
+        "overallScore": 33.6,
+        "dimensions": [
+          {
+            "dimension": "reproducibility",
+            "score": 25,
+            "inconclusive": false,
+            "confidence": 0.75,
+            "reasoning": "SWE-bench is a public benchmark with a standard harness, and the subset and protocol were disclosed. But Devin was a closed, waitlist-only system with no code, scaffold, logs, instance IDs for the 25% subset, variance, or compute and retry details. No third party could re-run or audit the number at launch. The Answer.AI evaluation used different tasks, so it is not a reproduction. The number is a real vendor measurement, but it cannot be independently checked from what was provided."
+          },
+          {
+            "dimension": "evidence_quality",
+            "score": 35,
+            "inconclusive": false,
+            "confidence": 0.7,
+            "reasoning": "The claim gives a specific, objective, test-based metric on a named public benchmark, which beats vibes. But it is a single vendor-reported figure on a 25% subset, with no confidence intervals, patch-quality validation, cost data or peer review. The 1.96% baseline came from a different protocol, and SWE-bench tests can accept overfit patches. The steelman's point that the baselines were advantaged is fair, but the comparison is still not like-for-like. The Answer.AI result is only indirect, since the tasks differ. The evidence is real but thin."
+          },
+          {
+            "dimension": "scope_honesty",
+            "score": 38,
+            "inconclusive": false,
+            "confidence": 0.7,
+            "reasoning": "The announcement credits itself for disclosing the random 25% subset and the unassisted-versus-assisted setup, and the asterisk marks the qualification. That is candid for launch marketing. But the claim sits inside an 'AI software engineer' framing that goes well beyond issue-to-patch on a fixed set of Python repos. Subset representativeness is asserted, and the 7x multiple is not a clean capability delta. Answer.AI's ~15% success rate on different tasks suggests the result does not transfer, though it is not a direct rebuttal."
+          },
+          {
+            "dimension": "production_readiness",
+            "score": 20,
+            "inconclusive": false,
+            "confidence": 0.75,
+            "reasoning": "The claim supplies no cost, latency, reliability, variance or governance data. Access was gated by a waitlist. A ~14% success rate means about 86% of issues fail, and no failure-mode or oversight design is described. Answer.AI's independent trial (3 successes, 14 failures, 3 inconclusive), with failures on existing projects, points the same way, though the tasks differ from SWE-bench. The demos and benchmark show a real capability signal, but not deployability."
+          },
+          {
+            "dimension": "novelty",
+            "score": 50,
+            "inconclusive": false,
+            "confidence": 0.5,
+            "reasoning": "An unassisted end-to-end agent with shell, editor, browser and planning was a notable product-level integration in early 2024, and the jump over the baseline is large even after allowing for setup differences. But the baselines were non-agentic and file-assisted, so the gap mixes scaffolding with any model advance. No architecture, model or ablation is disclosed, so a well-built wrapper around existing LLMs cannot be ruled out. Genuine engineering novelty is plausible but unproven. Confidence is low because the evidence is sparse."
+          },
+          {
+            "dimension": "hidden_caveats",
+            "score": 40,
+            "inconclusive": false,
+            "confidence": 0.65,
+            "reasoning": "The main methodological caveats (subset, unassisted versus assisted, waitlist) were disclosed, though partly in an asterisk rather than the headline. Not disclosed: cost, latency, retries, attempts, variance, contamination risk, patch quality beyond passing tests, and a failure-mode breakdown. The 'far exceeding' framing glosses over the non-equivalent baselines. Answer.AI's later results show real-world failure modes that the launch material did not surface. The headline is probably a true measurement, but it comes with limited context for interpreting it."
+          }
+        ],
+        "summary": "Cognition's launch announcement claims its AI software engineer Devin resolved 13.86% of issues end-to-end on a random 25% subset of SWE-bench, versus a prior best of 1.96%. The comparison involved methodological differences: Devin ran unassisted while baseline models were given the files to edit. Access was limited to a waitlist, limiting independent verification. A later, separate hands-on evaluation by Answer.AI reported 3 successes, 14 failures and 3 inconclusive results across 20 tasks, which is a different task set and not a reproduction of the SWE-bench experiment but bears on how well the headline figure generalizes to real-world use.",
+        "assertions": [
+          {
+            "id": "a1",
+            "text": "Devin correctly resolves 13.86% of the issues end-to-end on the SWE-bench evaluation.",
+            "testable": true,
+            "relatesTo": [
+              "reproducibility",
+              "evidence_quality",
+              "scope_honesty"
+            ]
+          },
+          {
+            "id": "a2",
+            "text": "The previous state-of-the-art on the same benchmark was 1.96%.",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "scope_honesty",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a3",
+            "text": "Devin's 13.86% result far exceeds (roughly 7x) the prior state of the art, indicating a genuine capability leap rather than a measurement artifact.",
+            "testable": true,
+            "relatesTo": [
+              "novelty",
+              "evidence_quality",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a4",
+            "text": "The evaluation used a random 25% subset of SWE-bench rather than the full benchmark, and the result is representative of full-benchmark performance.",
+            "testable": true,
+            "relatesTo": [
+              "reproducibility",
+              "scope_honesty",
+              "evidence_quality"
+            ]
+          },
+          {
+            "id": "a5",
+            "text": "Devin was run unassisted (given only the issue), whereas comparison models were given the exact files to edit, making the comparison like-for-like or favorable to baselines.",
+            "testable": true,
+            "relatesTo": [
+              "scope_honesty",
+              "hidden_caveats",
+              "evidence_quality"
+            ]
+          },
+          {
+            "id": "a6",
+            "text": "Issues are resolved 'end-to-end' and 'correctly', meaning the produced fixes pass the benchmark's tests and would be accepted as valid fixes.",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "hidden_caveats",
+              "production_readiness"
+            ]
+          },
+          {
+            "id": "a7",
+            "text": "The benchmark result implies Devin can function as an autonomous AI software engineer on real-world coding, debugging and maintenance work.",
+            "testable": true,
+            "relatesTo": [
+              "scope_honesty",
+              "production_readiness",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a8",
+            "text": "Devin is available only via a waitlist/early access, so independent parties cannot readily verify the result.",
+            "testable": true,
+            "relatesTo": [
+              "reproducibility",
+              "production_readiness"
+            ]
+          },
+          {
+            "id": "a9",
+            "text": "Independent hands-on evaluation (Answer.AI, Jan 2025) found 3 successes, 14 failures and 3 inconclusive outcomes across 20 tasks, a far lower real-world success rate than implied by the headline figure, though on different tasks than SWE-bench.",
+            "testable": true,
+            "relatesTo": [
+              "reproducibility",
+              "scope_honesty",
+              "production_readiness",
+              "hidden_caveats"
+            ]
+          }
+        ],
+        "strongestSteelman": "The strongest defensible case is that this is a real, specific, and unusually well-qualified measurement of a genuine step-change on an established benchmark, not a vague capability boast. The claim names a concrete metric (13.86% of SWE-bench issues resolved end-to-end), a concrete baseline (1.96%), and the source itself discloses the main methodological details: a random 25% subset, Devin run unassisted from the issue alone, and baselines given the exact files to edit. That last disclosure cuts in the claim's favor, since the comparison handicaps Devin relative to the baselines. SWE-bench is a public, test-based benchmark where success means the repo's tests pass, so the metric is objective rather than subjective. A roughly 7x jump is too large to plausibly be noise on a subset of that size. Later independent hands-on testing (Answer.AI, 3 successes, 14 failures, 3 inconclusive over 20 tasks) does not contradict the benchmark. It tested a different task mix with a different method, and it did record real successes, including setup work. Overall, the best case is that Devin was a real early-stage advance in agentic software engineering that was reported with more methodological candor than typical launch marketing. That best case is moderate, not strong: the evidence is a single self-reported vendor result on a subset, with no released harness or trajectories implied by the input, and the real-world success rate looks far lower.",
+        "strongestDebunk": "Reproducibility (severity 78/100): Access limited to a waitlist/early access, so independent parties could not run Devin on SWE-bench at announcement time",
+        "model": "sonnet (via Claude CLI / subscription)",
+        "generatedAt": "2026-11-07T23:41:31.698Z"
+      }
+    },
+    {
+      "meta": {
+        "slug": "gemini-2023-multimodal-demo",
+        "title": "Gemini's 2023 multimodal demo",
+        "claimant": "Google",
+        "claimDate": "2023-12-06",
+        "sourceUrl": "https://www.youtube.com/watch?v=UIZAiXYceBI",
+        "sources": [
+          {
+            "url": "https://www.youtube.com/watch?v=UIZAiXYceBI",
+            "title": "youtube.com"
+          },
+          {
+            "url": "https://developers.googleblog.com/how-its-made-interacting-with-gemini-through-multimodal-prompting/",
+            "title": "Google Developers: How it's Made, Interacting with Gemini through multimodal prompting (2023-12-06)"
+          },
+          {
+            "url": "https://www.tomshardware.com/news/google-gemini-ai-video-staged",
+            "title": "Tom's Hardware: Google admits the Gemini AI demo hands-on video was staged (2023-12-08)"
+          }
+        ],
+        "runAt": "2026-11-07T23:43:54.061Z",
+        "model": "sonnet",
+        "provider": "claude-cli",
+        "toolVersion": "1.0.0"
+      },
+      "scorecard": {
+        "input": {
+          "claim": "Our natively multimodal AI model Gemini is capable of reasoning across text, images, audio, video and code.",
+          "context": "Google published this Gemini demonstration video on December 6, 2023; the quoted sentence appears in its video description. [1] The description discloses that latency was reduced and model outputs shortened for the demonstration. [1] Google's accompanying developer article presents image-and-text prompts and model responses used to make the demonstration, including rock-paper-scissors recognition and visual reasoning examples. [2] Tom's Hardware reported Google's explanation that the demonstration used still frames and typed prompts rather than the recorded real-time spoken interaction suggested by its presentation. [3]",
+          "sourceUrl": "https://www.youtube.com/watch?v=UIZAiXYceBI"
+        },
+        "verdict": "THEATER",
+        "overallScore": 30.9,
+        "dimensions": [
+          {
+            "dimension": "reproducibility",
+            "score": 35,
+            "inconclusive": false,
+            "confidence": 0.7,
+            "reasoning": "The video as presented is not reproducible: latency was cut, outputs were shortened, and per Google's own explanation it was built from still frames and typed prompts rather than live audio and video. In its favor, Google's developer article published the image-and-text prompts and responses, and the model later became publicly accessible, so outsiders could try similar image-plus-text tasks. That supports a limited version of the claim. No evidence covers audio, video or code reproduction. There are also no repeated trials or failure rates. The sources give nothing on 'native' multimodal training. The score is low-to-moderate: partly reproducible for image+text, not for the claim as a whole."
+          },
+          {
+            "dimension": "evidence_quality",
+            "score": 25,
+            "inconclusive": false,
+            "confidence": 0.75,
+            "reasoning": "The evidence is a vendor promotional video, a vendor blog post, and one press report. It has no benchmarks, datasets, metrics, baselines or independent evaluation. The disclosed edits and the still-frame/typed-prompt method mean the video is not raw behavior and misrepresents the audio/video evidence. The developer article does provide real prompt-response pairs for image+text reasoning, which is a small amount of genuine evidence. Google's separate technical report and benchmarks are not part of the cited material, so they cannot be credited here. The claim is plausible, but this package supports it weakly."
+          },
+          {
+            "dimension": "scope_honesty",
+            "score": 28,
+            "inconclusive": false,
+            "confidence": 0.7,
+            "reasoning": "The claim is a broad capability statement across five modalities, yet the shown evidence is a few curated image-and-text examples. The video implied fluid real-time spoken and video interaction, but the actual method was stills and typed prompts. That is a clear gap between presented and actual scope. The video description disclosed the latency and output edits, and Google explained the method when asked, which counts slightly in its favor. Even so, the demonstrated scope is much narrower than the implied one. Audio, video and code were not demonstrated, and no limits or per-modality performance were given."
+          },
+          {
+            "dimension": "production_readiness",
+            "score": 25,
+            "inconclusive": false,
+            "confidence": 0.65,
+            "reasoning": "The video implied real-time interactive use. Latency was admittedly reduced, and the interaction was not live. No latency, cost, throughput, reliability or governance figures are given. Image+text prompting through an API is a real, shippable capability, and the model was later released, which supplies some basis for readiness. That basis is not in the cited evidence, and the cited evidence does not show deployable multimodal streaming. The model tiers, including Ultra's unavailability at the time, were not addressed. The readiness implied by the presentation is unsupported."
+          },
+          {
+            "dimension": "novelty",
+            "score": 50,
+            "inconclusive": false,
+            "confidence": 0.5,
+            "reasoning": "Gemini was a new Google model rather than a wrapper or rebrand, and training multimodally from the start is a credible design difference. However, the cited evidence cannot verify the 'native' architecture. Image+text reasoning had precedents in GPT-4V and Flamingo, and the documented examples (rock-paper-scissors, simple visual reasoning) show no step change. The most novel-looking element, live cross-modal interaction, was not actually shown. There is no comparison to prior systems. Novelty is real but modest and mostly unproven from this material, so the score sits near the middle."
+          },
+          {
+            "dimension": "hidden_caveats",
+            "score": 30,
+            "inconclusive": false,
+            "confidence": 0.7,
+            "reasoning": "The description disclosed two edits, latency and output length. It did not disclose the larger one, that the interaction was assembled from still frames and typed prompts, which came out only through press coverage and Google's later explanation. The video also gives no failure rates, unedited outputs, attempt counts, latency numbers, cost or model-tier information. Reported prompt engineering with hints is not shown in the video. The partial disclosure and the later public acknowledgment keep this from the lowest range. The material omission about interaction mode is serious for a demo that leaned on the appearance of real-time fluency."
+          }
+        ],
+        "summary": "Google's description for its December 2023 Gemini demonstration video asserts that Gemini is a natively multimodal model able to reason across text, images, audio, video and code. The accompanying context says the video disclosed reduced latency and shortened outputs, that Google's developer article documents the image-and-text prompts behind the demo (such as rock-paper-scissors and visual reasoning), and that Google reportedly acknowledged the demo used still frames and typed prompts rather than the live spoken, real-time interaction it appeared to show. The claim therefore bundles an architectural statement (native multimodality), a broad capability statement (cross-modal reasoning over five modalities), and an implied presentation of real-time interaction that the context suggests is not literally accurate.",
+        "assertions": [
+          {
+            "id": "a1",
+            "text": "Gemini is a natively multimodal model (trained as multimodal from the start rather than stitching together separate single-modality components).",
+            "testable": true,
+            "relatesTo": [
+              "novelty",
+              "evidence_quality",
+              "scope_honesty"
+            ]
+          },
+          {
+            "id": "a2",
+            "text": "Gemini can reason across text, images, audio, video and code (cross-modal reasoning, not just processing each modality separately).",
+            "testable": true,
+            "relatesTo": [
+              "reproducibility",
+              "evidence_quality",
+              "scope_honesty",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a3",
+            "text": "The capability applies generally across all five listed modalities and their combinations, not just to the specific examples shown in the demonstration.",
+            "testable": true,
+            "relatesTo": [
+              "scope_honesty",
+              "reproducibility",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a4",
+            "text": "The demonstration video accurately represents Gemini's real behavior, with the disclosed latency reductions and output shortening being the only material alterations.",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "hidden_caveats",
+              "production_readiness",
+              "reproducibility"
+            ]
+          },
+          {
+            "id": "a5",
+            "text": "The video implies real-time, live interaction with spoken audio and video input, whereas the demonstration was reportedly built from still frames and typed text prompts.",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "hidden_caveats",
+              "production_readiness",
+              "scope_honesty"
+            ]
+          },
+          {
+            "id": "a6",
+            "text": "Specific demonstrated examples (e.g., rock-paper-scissors recognition, visual reasoning) reflect outputs the model can produce from the image-and-text prompts documented in Google's developer article.",
+            "testable": true,
+            "relatesTo": [
+              "reproducibility",
+              "evidence_quality"
+            ]
+          },
+          {
+            "id": "a7",
+            "text": "The model's performance in the described multimodal capability is suitable for interactive, deployable use at the latency and output quality implied by the video.",
+            "testable": true,
+            "relatesTo": [
+              "production_readiness",
+              "hidden_caveats"
+            ]
+          }
+        ],
+        "strongestSteelman": "The narrow, literal claim, that Gemini 'is capable of reasoning across text, images, audio, video and code,' is the most defensible part of this package. It is a capability statement, and the surrounding materials broadly support the part that matters. Google's accompanying developer article published the actual image-and-text prompts and model responses behind the demo, including rock-paper-scissors recognition and visual reasoning. That makes the underlying behavior inspectable and at least partly reproducible by outsiders, which a pure cherry-picked video would not allow. Google also disclosed in the video description, at publication, that latency was reduced and outputs shortened. That is a real, if modest, transparency step, and those two alterations are the kind that leave the substance of the model's answers intact. Tom's Hardware's report shows that Google explained the still-frame and typed-prompt method rather than denying it. This means the process behind the video is documented and the gap between presentation and method is publicly acknowledged. Multimodal prompting with images plus text is a real, shippable category of capability, so the core assertion that the model can take mixed-modality input and produce a relevant reasoned answer is plausible and consistent with the documented examples. The best case is therefore a credible but limited one. The model does reason over images plus text, in ways Google documented. It does not establish real-time live interaction, general performance across all five modalities, or deployable latency. Those stronger readings go beyond what the evidence shows.",
+        "strongestDebunk": "Production-readiness (severity 82/100): The video implied real-time, live spoken and video interaction, but per Tom's Hardware the demo used still frames and typed text prompts, so no real-time interactive capability was demonstrated.",
+        "model": "sonnet (via Claude CLI / subscription)",
+        "generatedAt": "2026-11-07T23:43:54.060Z"
+      }
+    },
+    {
+      "meta": {
+        "slug": "recall-launch-privacy",
+        "title": "Recall's launch privacy promise",
+        "claimant": "Microsoft",
+        "claimDate": "2024-05-20",
+        "sourceUrl": "https://blogs.microsoft.com/blog/2024/05/20/introducing-copilot-pcs/",
+        "sources": [
+          {
+            "url": "https://blogs.microsoft.com/blog/2024/05/20/introducing-copilot-pcs/",
+            "title": "blogs.microsoft.com"
+          },
+          {
+            "url": "https://blogs.windows.com/windowsexperience/2024/06/07/update-on-the-recall-preview-feature-for-copilot-pcs/",
+            "title": "Microsoft: Update on the Recall preview feature for Copilot+ PCs (2024-06-07, with dated updates)"
+          },
+          {
+            "url": "https://blogs.windows.com/windowsexperience/2025/04/25/responsible-ai-and-trustworthy-innovation-on-windows/",
+            "title": "Microsoft: Responsible AI and trustworthy innovation on Windows (2025-04-25)"
+          }
+        ],
+        "runAt": "2026-11-07T23:41:24.655Z",
+        "model": "sonnet",
+        "provider": "claude-cli",
+        "toolVersion": "1.0.0"
+      },
+      "scorecard": {
+        "input": {
+          "claim": "You are always in control with privacy you can trust.",
+          "context": "Microsoft introduced Recall for Copilot+ PCs with a planned June 18, 2024 preview, describing an on-device semantic index, local snapshots, deletion controls and app or website exclusions. [1] On June 7, Microsoft announced explicit opt-in, Windows Hello requirements and additional protection including encryption of the search index database. [2] A June 13 update moved Recall from the planned broad June 18 preview to Windows Insider testing before wider availability. [2] On April 25, 2025, Microsoft announced the public rollout of Recall, still labeled preview, describing opt-in, biometric authentication and isolated processing of encrypted snapshots. [3]",
+          "sourceUrl": "https://blogs.microsoft.com/blog/2024/05/20/introducing-copilot-pcs/"
+        },
+        "verdict": "THEATER",
+        "overallScore": 29.8,
+        "dimensions": [
+          {
+            "dimension": "reproducibility",
+            "score": 30,
+            "inconclusive": false,
+            "confidence": 0.6,
+            "reasoning": "The headline ('always in control with privacy you can trust') is an unfalsifiable slogan. The underlying feature claims (opt-in, Windows Hello gating, encryption, local processing, exclusions, deletion) are concrete and could be tested by anyone with a Copilot+ PC. That keeps the score above the floor. The context shows only vendor descriptions and no independent test or audit. The design was also reworked after outside criticism, and the feature was still labeled preview in April 2025. Reproducibility is therefore partial for the feature claims and essentially absent for the headline."
+          },
+          {
+            "dimension": "evidence_quality",
+            "score": 25,
+            "inconclusive": false,
+            "confidence": 0.7,
+            "reasoning": "All evidence is Microsoft's own announcements of design intent. There are no benchmarks, threat model, audit, pen-test, filtering-accuracy data or user-study results. The specific design facts are documented and consistent across June 2024 and April 2025, which counts for something. Outcome claims like 'always' and 'trust' are unsupported. The post-criticism redesign shows the earlier assurances were not validated."
+          },
+          {
+            "dimension": "scope_honesty",
+            "score": 25,
+            "inconclusive": false,
+            "confidence": 0.7,
+            "reasoning": "The claim is stated as an unconditional guarantee, but the supporting mechanisms are narrow: one preview feature on Copilot+ hardware, with user-configured exclusions and best-effort filtering. Opt-in and Windows Hello were added after backlash. Third-party content in snapshots and compromised sessions are not addressed. The mechanisms are real and so partly support a narrower statement, but 'always' overreaches clearly."
+          },
+          {
+            "dimension": "production_readiness",
+            "score": 40,
+            "inconclusive": false,
+            "confidence": 0.55,
+            "reasoning": "Real mitigations were implemented, and Microsoft pulled the June 2024 launch back to Insider testing before a public rollout in April 2025. That is the staged, cautious path of a real product. Still, the feature shipped as 'preview' with no disclosed performance or storage cost, no enterprise governance details, no reliability data on exclusions, filtering or deletion, and dependence on specific hardware and Hello enrollment. The original launch plan was clearly not ready. Readiness is moderate, not proven."
+          },
+          {
+            "dimension": "novelty",
+            "score": 40,
+            "inconclusive": false,
+            "confidence": 0.5,
+            "reasoning": "The slogan describes no new capability. The underlying feature (on-device NPU-accelerated semantic search over local snapshots, integrated into the OS) is a real engineering contribution at the OS level. Similar tools existed before it, and the privacy controls reuse standard components (Windows Hello, VBS isolation, encryption). The score is middling because the claim is about trust and not about novelty, and the feature is an integration of known ideas."
+          },
+          {
+            "dimension": "hidden_caveats",
+            "score": 25,
+            "inconclusive": false,
+            "confidence": 0.65,
+            "reasoning": "The claim omits the default-on, unencrypted original design and its reversal after criticism. It also omits best-effort sensitive-data filtering, third parties captured in snapshots, limits of a Hello gate against malware or a compromised session, resource costs, the Copilot+ hardware requirement and the preview status. The listed mitigations are real, which keeps the score from the floor. No failure-mode disclosure or independent threat analysis is given."
+          }
+        ],
+        "summary": "The claim is a broad marketing statement from Microsoft's Copilot+ PC announcement that users are always in control and can trust the privacy of the platform. The supplied context ties this to Recall, an on-device semantic index with local snapshots, deletion and app/website exclusion controls, and, after later revisions, explicit opt-in, Windows Hello authentication, and encryption of the index and snapshots with isolated processing. The context also shows the original June 2024 launch plan was pulled back to Windows Insider testing before a public preview in April 2025, suggesting the privacy design was revised after the initial announcement. The absolute wording ('always in control', 'privacy you can trust') is unfalsifiable as stated and must be broken into specific, testable control and protection claims.",
+        "assertions": [
+          {
+            "id": "a1",
+            "text": "Users are always in control of Recall/Copilot+ PC features (including whether Recall is enabled, what is captured, and what is retained).",
+            "testable": true,
+            "relatesTo": [
+              "scope_honesty",
+              "hidden_caveats",
+              "evidence_quality"
+            ]
+          },
+          {
+            "id": "a2",
+            "text": "Users can trust the privacy of Recall and Copilot+ PCs (data handling is trustworthy, not exposed to unauthorized parties).",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "hidden_caveats",
+              "production_readiness"
+            ]
+          },
+          {
+            "id": "a3",
+            "text": "Recall is explicitly opt-in; it is not enabled by default and requires user consent.",
+            "testable": true,
+            "relatesTo": [
+              "reproducibility",
+              "scope_honesty"
+            ]
+          },
+          {
+            "id": "a4",
+            "text": "Recall access requires Windows Hello biometric authentication.",
+            "testable": true,
+            "relatesTo": [
+              "reproducibility",
+              "production_readiness"
+            ]
+          },
+          {
+            "id": "a5",
+            "text": "The Recall search index database and snapshots are encrypted and processed in an isolated environment on-device.",
+            "testable": true,
+            "relatesTo": [
+              "evidence_quality",
+              "reproducibility",
+              "production_readiness",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a6",
+            "text": "Users have deletion controls and can exclude specific apps or websites from Recall snapshots.",
+            "testable": true,
+            "relatesTo": [
+              "reproducibility",
+              "scope_honesty",
+              "hidden_caveats"
+            ]
+          },
+          {
+            "id": "a7",
+            "text": "Recall's semantic index and snapshots are stored and processed locally on-device rather than sent to the cloud.",
+            "testable": true,
+            "relatesTo": [
+              "reproducibility",
+              "evidence_quality",
+              "novelty"
+            ]
+          },
+          {
+            "id": "a8",
+            "text": "The Recall rollout timeline (planned June 18, 2024 preview, moved to Windows Insider testing, public preview rollout April 25, 2025) reflects readiness and responsiveness to privacy concerns rather than a deployable-at-launch product.",
+            "testable": true,
+            "relatesTo": [
+              "production_readiness",
+              "hidden_caveats",
+              "scope_honesty"
+            ]
+          }
+        ],
+        "strongestSteelman": "Read narrowly, the claim is backed by a concrete, publicly documented set of design changes that Microsoft made in response to criticism, not just by marketing language. Between the May 2024 announcement and the April 2025 rollout, the context shows Microsoft moving Recall from on by default to explicit opt-in. It added Windows Hello authentication, encrypted the search index database, and described isolated processing of encrypted snapshots. The data stays on the device, and users get deletion controls and app and website exclusions. Microsoft also held back the broad June 18, 2024 preview and moved Recall to Windows Insider testing, which suggests it delayed shipping when the privacy design was not ready. The strongest defensible reading is that the stated privacy architecture (local processing, opt-in, biometric gating, encryption, user controls) is real, specific, and was publicly committed to. The slogan 'always in control, privacy you can trust' is a marketing summary of those mechanisms, and it is not a measured guarantee. The best case is weak on the absolute wording ('always', 'trust') and on independent verification. The supplied input contains no benchmarks, audits, or third-party testing, and the four rubric dimensions that depend on that kind of evidence cannot be scored from it.",
+        "strongestDebunk": "Evidence quality (severity 78/100): The claim 'always in control with privacy you can trust' is an absolute marketing slogan; the cited sources are Microsoft's own blog posts and give no independent measurement, audit or benchmark supporting it.",
+        "model": "sonnet (via Claude CLI / subscription)",
+        "generatedAt": "2026-11-07T23:41:24.655Z"
+      }
+    }
+  ]
+}

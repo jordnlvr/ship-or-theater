@@ -1,0 +1,43 @@
+<!doctype html>
+<!-- Source for assets/social-card.png (1280x640). Render: open in Chrome at 1280x640 and screenshot the viewport. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ship or Theater social card</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=JetBrains+Mono:wght@500&family=Newsreader:ital,opsz,wght@0,6..72,600;1,6..72,500&display=block">
+<style>
+  :root { --bg:#f5f4f0; --ink:#14161b; --ink3:#5f6571; --rule:#dcd9d1; --ships:#0f7a46; --mixed:#985a00; --theater:#b4232a; }
+  html, body { margin:0; width:1280px; height:640px; overflow:hidden; background:var(--bg); color:var(--ink); }
+  body { font-family:Inter, system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  .card { position:relative; box-sizing:border-box; width:1280px; height:640px; padding:60px 88px 64px; display:flex; flex-direction:column; }
+  .brand { display:flex; align-items:center; gap:14px; font:600 34px/1 Newsreader, Georgia, serif; letter-spacing:-.01em; }
+  .brand i { font-style:italic; font-weight:500; color:var(--ink3); }
+  .brand svg { width:38px; height:38px; }
+  h1 { margin:44px 0 0; font:600 84px/1 Newsreader, Georgia, serif; letter-spacing:-.03em; }
+  h1 em { font-style:italic; font-weight:500; color:var(--theater); }
+  p { margin:24px 0 0; font-size:26px; line-height:1.4; color:#434852; max-width:960px; }
+  .meter { margin-top:auto; }
+  .track { display:flex; height:16px; border-radius:4px; overflow:hidden; }
+  .track span:nth-child(1) { width:40%; background:color-mix(in srgb, var(--theater) 24%, transparent); }
+  .track span:nth-child(2) { width:30%; background:color-mix(in srgb, var(--mixed) 26%, transparent); }
+  .track span:nth-child(3) { width:30%; background:color-mix(in srgb, var(--ships) 24%, transparent); }
+  .labels { display:grid; grid-template-columns:40fr 30fr 30fr; margin-top:14px; font:700 17px/1 Inter, sans-serif; letter-spacing:.08em; text-transform:uppercase; }
+  .labels span:nth-child(1) { color:var(--theater); } .labels span:nth-child(2) { color:var(--mixed); } .labels span:nth-child(3) { color:var(--ships); }
+  .foot { display:flex; justify-content:space-between; align-items:center; margin-top:32px; font-size:22px; color:var(--ink3); }
+  .foot code { font:500 22px/1 "JetBrains Mono", monospace; color:var(--bg); background:var(--ink); padding:12px 18px; border-radius:10px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M16 3a13 13 0 0 0 0 26z" fill="currentColor"/></svg><span>ship <i>or</i> theater</span></div>
+    <h1>Is it shipping, or is it <em>theater</em>?</h1>
+    <p>Six skeptics, a steelman and a judge score any AI claim from 0 to 100 on a fixed, public rubric.</p>
+    <div class="meter">
+      <div class="track"><span></span><span></span><span></span></div>
+      <div class="labels"><span>Theater</span><span>Mixed · 40</span><span>Ships · 70</span></div>
+    </div>
+    <div class="foot"><code>npx ship-or-theater "&lt;claim&gt;"</code><span>github.com/jordnlvr/ship-or-theater</span></div>
+  </div>
+</body>
+</html>

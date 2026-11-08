@@ -8,7 +8,7 @@ import type { JudgedDimension, Scorecard, Verdict } from "./types.js";
  */
 
 /** A short, honest one-liner describing what each verdict means. */
-const VERDICT_GLOSS: Record<Verdict, string> = {
+export const VERDICT_GLOSS: Record<Verdict, string> = {
   SHIPS: "Credible, reproducible, and close to deployable.",
   MIXED: "Real signal, but meaningful gaps or unproven claims remain.",
   THEATER: "Mostly demo theater; the strong claims are not backed.",

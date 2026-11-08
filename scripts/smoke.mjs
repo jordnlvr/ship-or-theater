@@ -1,13 +1,11 @@
-// Live smoke test: exercises the BUILT library against the real Anthropic API.
-// Requires a real ANTHROPIC_API_KEY — this makes a genuine API call, no mocks.
-//   npm run build && ANTHROPIC_API_KEY=... npm run smoke
-import { createLLM, evaluate, renderMarkdown } from "../dist/index.js";
+// Live smoke test: exercises the BUILT library against the selected provider
+// (Anthropic API when ANTHROPIC_API_KEY is set, or the local `claude` CLI).
+//   npm run build && npm run smoke
+import { evaluate, renderMarkdown, selectProvider } from "../dist/index.js";
 
-if (!process.env.ANTHROPIC_API_KEY) {
-  console.error(
-    "ANTHROPIC_API_KEY is not set. Set it and re-run: " +
-      "npm run build && ANTHROPIC_API_KEY=... npm run smoke",
-  );
+const selected = selectProvider();
+if ("error" in selected) {
+  console.error(selected.error);
   process.exit(1);
 }
 
@@ -17,7 +15,8 @@ const CLAIM = {
   context: "From a product launch blog post; no public reproduction provided.",
 };
 
-const llm = createLLM();
-console.error("Running a live evaluation against the real API…");
-const scorecard = await evaluate(llm, CLAIM);
+console.error(`Running a live evaluation using ${selected.modelLabel}…`);
+const scorecard = await evaluate(selected.llm, CLAIM, {
+  model: selected.modelLabel,
+});
 console.log(renderMarkdown(scorecard));

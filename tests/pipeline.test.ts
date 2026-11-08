@@ -33,6 +33,25 @@ describe("evaluate — happy path", () => {
     ).toHaveLength(6);
   });
 
+  it("emits progress events in order: extractor -> skeptics -> steelman -> judge -> done", async () => {
+    const { llm } = makeFakeLLM();
+    const stages: string[] = [];
+    await evaluate(llm, INPUT, {
+      now: fixedNow,
+      onProgress: (ev) => {
+        stages.push(
+          ev.stage === "skeptics"
+            ? `skeptics:${ev.skepticsCompleted}/${ev.skepticsTotal}`
+            : ev.stage,
+        );
+      },
+    });
+    expect(stages[0]).toBe("extractor");
+    expect(stages[1]).toBe("skeptics:0/6");
+    expect(stages).toContain("skeptics:6/6");
+    expect(stages.slice(-3)).toEqual(["steelman", "judge", "done"]);
+  });
+
   it("selects the strongest debunk from the highest-severity skeptic", async () => {
     const skeptic = (dimension: string): SkepticFinding => ({
       dimension: dimension as SkepticFinding["dimension"],

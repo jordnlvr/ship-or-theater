@@ -1,0 +1,162 @@
+{
+  "meta": {
+    "slug": "alphafold2-casp14",
+    "title": "AlphaFold 2 at CASP14",
+    "claimant": "Google DeepMind",
+    "claimDate": "2020-11-30",
+    "sourceUrl": "https://deepmind.google/blog/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology/",
+    "sources": [
+      {
+        "title": "DeepMind: AlphaFold, a solution to a 50-year-old grand challenge in biology (2020-11-30)",
+        "url": "https://deepmind.google/blog/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology/"
+      },
+      {
+        "title": "DeepMind: AlphaFold 2 repository, including CASP14 reproducibility notes",
+        "url": "https://github.com/google-deepmind/alphafold"
+      },
+      {
+        "title": "Mirdita et al.: ColabFold, making protein folding accessible to all (Nature Methods, 2022)",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9184281/"
+      }
+    ],
+    "runAt": "2026-11-07T23:34:54.745Z",
+    "model": "sonnet",
+    "provider": "claude-cli",
+    "toolVersion": "1.0.0"
+  },
+  "scorecard": {
+    "input": {
+      "claim": "our latest AlphaFold system achieves a median score of 92.4 GDT overall across all targets.",
+      "context": "DeepMind reported this result for AlphaFold 2 in CASP14, an assessment using protein structures withheld from participants before prediction. [1] DeepMind subsequently made AlphaFold 2 inference code and model parameters available in its public repository. [2] The independent ColabFold team reported matching AlphaFold 2 prediction quality on CASP14 targets using AlphaFold 2 with a different sequence-search pipeline. [3] The AlphaFold repository cautions that some CASP14 targets involved manual interventions and that reproducing the competition results requires the original database versions. [2]",
+      "sourceUrl": "https://deepmind.google/blog/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology/"
+    },
+    "verdict": "MIXED",
+    "overallScore": 65.8,
+    "dimensions": [
+      {
+        "dimension": "reproducibility",
+        "score": 68,
+        "inconclusive": false,
+        "confidence": 0.7,
+        "reasoning": "CASP14 was a blind, prospective test with published targets and independent scoring. DeepMind released code and parameters, and ColabFold independently reported matching quality. Against that, the repository says some targets involved manual intervention and that exact competition results need the original database versions. So the 92.4 figure cannot be reproduced bit for bit, and the blog gives no methodology. The capability is reproducible in spirit, but the exact number is only partly so."
+      },
+      {
+        "dimension": "evidence_quality",
+        "score": 78,
+        "inconclusive": false,
+        "confidence": 0.75,
+        "reasoning": "CASP14 is a community-run blind benchmark with independent assessors, which makes it much stronger evidence than a self-chosen demo. The weaknesses are that the cited source is a vendor blog, the median hides the distribution, 'all targets' is ambiguous (targets versus domains), and no confidence intervals are given. ColabFold's corroboration is real but is not an exact reproduction. The core number is well supported, and the surrounding framing is thinner."
+      },
+      {
+        "dimension": "scope_honesty",
+        "score": 55,
+        "inconclusive": false,
+        "confidence": 0.65,
+        "reasoning": "The literal claim is tied to a named benchmark and metric, which is honest. But 'overall across all targets' sits in a blog titled 'a solution to a 50-year-old grand challenge', which invites a broader reading. CASP14 is a small set of mostly single-chain domains. GDT_TS says nothing about side chains, complexes, disorder or dynamics. The median hides tail failures, and the manual interventions on some targets are not mentioned in the claim. The number is honest and the surrounding generalization is overstated."
+      },
+      {
+        "dimension": "production_readiness",
+        "score": 62,
+        "inconclusive": false,
+        "confidence": 0.55,
+        "reasoning": "The claim is only an accuracy benchmark and gives no latency, cost, reliability or governance data. Still, the code and weights were released and are widely used, and ColabFold gives a faster search pipeline. That shows real deployability for the technology. The competition result itself involved some manual steps and specific database versions, so it is not evidence of a hands-off production pipeline. Compute and MSA search costs go unstated."
+      },
+      {
+        "dimension": "novelty",
+        "score": 88,
+        "inconclusive": false,
+        "confidence": 0.8,
+        "reasoning": "AlphaFold 2's CASP14 result was a widely recognized step change over prior methods, including AlphaFold 1, with a large gap to the next-best entrant. It is not a wrapper or rebrand. ColabFold reuses the model with a different search front end, so it does not undercut the novelty. The claim text does not itself say what is new, and 'latest' is now stale, which takes off a little."
+      },
+      {
+        "dimension": "hidden_caveats",
+        "score": 50,
+        "inconclusive": false,
+        "confidence": 0.65,
+        "reasoning": "The claim leaves out several things: manual interventions on some targets, dependence on the original database versions, compute cost, and the median's hiding of low-scoring targets. It also omits that CASP14 targets are mostly single-chain domains with deep MSAs, and that 'latest' has lapsed. Some of these are disclosed in the AlphaFold repository, which helps. The headline number is real, but a reader of the claim alone would miss material caveats."
+      }
+    ],
+    "summary": "The claim states that DeepMind's latest AlphaFold system (AlphaFold 2 at CASP14) achieved a median GDT score of 92.4 across all targets in a blind structure-prediction assessment where experimentally determined structures were withheld from participants. The implied framing is that this near-experimental accuracy represents a breakthrough on the protein folding problem. The surrounding context adds that the code and weights were later publicly released, that ColabFold reportedly matched quality on CASP14 targets with a different sequence-search pipeline, and that the AlphaFold repository cautions that some CASP14 targets involved manual interventions and that reproducing competition results requires the original database versions.",
+    "assertions": [
+      {
+        "id": "a1",
+        "text": "AlphaFold 2 (the 'latest' system at the time of CASP14) achieved a median GDT_TS of 92.4 across all CASP14 targets.",
+        "testable": true,
+        "relatesTo": [
+          "evidence_quality",
+          "reproducibility"
+        ]
+      },
+      {
+        "id": "a2",
+        "text": "The 92.4 median GDT score was measured on CASP14, an assessment using protein structures withheld from participants before prediction (i.e., a blind, prospective test).",
+        "testable": true,
+        "relatesTo": [
+          "evidence_quality",
+          "reproducibility",
+          "scope_honesty"
+        ]
+      },
+      {
+        "id": "a3",
+        "text": "The 92.4 median is computed 'overall across all targets', implying it covers every CASP14 target without exclusion or cherry-picking.",
+        "testable": true,
+        "relatesTo": [
+          "scope_honesty",
+          "hidden_caveats"
+        ]
+      },
+      {
+        "id": "a4",
+        "text": "The result was produced by the automated AlphaFold 2 system without manual intervention on any target.",
+        "testable": true,
+        "relatesTo": [
+          "hidden_caveats",
+          "reproducibility"
+        ]
+      },
+      {
+        "id": "a5",
+        "text": "The AlphaFold 2 system described is the 'latest' AlphaFold system (a currency claim), as opposed to a superseded version.",
+        "testable": true,
+        "relatesTo": [
+          "novelty",
+          "scope_honesty"
+        ]
+      },
+      {
+        "id": "a6",
+        "text": "The CASP14 result can be reproduced by independent parties using the publicly released AlphaFold 2 code and parameters.",
+        "testable": true,
+        "relatesTo": [
+          "reproducibility",
+          "production_readiness"
+        ]
+      },
+      {
+        "id": "a7",
+        "text": "Equivalent prediction quality on CASP14 targets is achievable with alternative pipelines such as ColabFold, which uses a different sequence-search method.",
+        "testable": true,
+        "relatesTo": [
+          "reproducibility",
+          "novelty",
+          "production_readiness"
+        ]
+      },
+      {
+        "id": "a8",
+        "text": "A median GDT of 92.4 implies the system generalizes to protein structure prediction broadly (beyond CASP14 targets), i.e., a solution to the protein folding problem.",
+        "testable": true,
+        "relatesTo": [
+          "scope_honesty",
+          "hidden_caveats",
+          "production_readiness"
+        ]
+      }
+    ],
+    "strongestSteelman": "The headline number is the best-documented part of the claim. DeepMind reported a median GDT_TS of 92.4 for AlphaFold 2 at CASP14, which is a blind, prospective assessment. The target structures were withheld from all participants until after predictions were submitted, and CASP's independent assessors scored them. That structure is much harder to game than a self-chosen benchmark, and it supports the 'across all targets' framing, since CASP scores the whole target set rather than a hand-picked subset. Post-competition developments also strengthen the case. DeepMind released AlphaFold 2 inference code and model parameters publicly, so independent parties can run the same model. The independent ColabFold team reported matching AlphaFold 2 prediction quality on CASP14 targets with a different sequence-search pipeline. That is evidence the capability is a property of the model and not of one tightly controlled setup. It was also a real step change. The context describes it as a blind-test result with independent follow-up, not a demo. The best case holds for the narrow claim: AlphaFold 2 scored a median GDT_TS of 92.4 on CASP14. It is weaker for the claims that this is the 'latest' system, that it was fully automated, that the exact result is reproducible, and that it generalizes to protein folding broadly.",
+    "strongestDebunk": "Hidden caveats (severity 58/100): The claim says 'across all targets' but omits that the CASP14 assessment and the AlphaFold repo itself note that some targets involved manual interventions, so the result was not purely automated end to end (contradicts a4).",
+    "model": "sonnet (via Claude CLI / subscription)",
+    "generatedAt": "2026-11-07T23:34:54.744Z"
+  }
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="72" viewBox="0 0 440 72" role="img" aria-label="ship or theater">
+  <style>
+    .i{fill:#14161b}.s{stroke:#14161b}.m{fill:#5f6571}
+    .t{font-family:Newsreader,Georgia,'Times New Roman',serif;font-size:44px;font-weight:600;letter-spacing:-0.5px}
+    @media (prefers-color-scheme: dark){.i{fill:#eceef3}.s{stroke:#eceef3}.m{fill:#9aa1ae}}
+  </style>
+  <circle class="s" cx="36" cy="36" r="24" fill="none" stroke-width="5"/>
+  <path class="i" d="M36 12a24 24 0 0 0 0 48z"/>
+  <text x="78" y="50" class="t"><tspan class="i">ship </tspan><tspan class="m" font-style="italic" font-weight="500">or</tspan><tspan class="i"> theater</tspan></text>
+</svg>

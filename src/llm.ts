@@ -9,8 +9,11 @@ import { z } from "zod";
  * fake `llm` and no API key.
  */
 
+/** Package version constant. */
+export const VERSION = "1.0.0";
+
 /** Default model; override with the SOT_MODEL env var. */
-export const DEFAULT_MODEL = "claude-sonnet-4-6";
+export const DEFAULT_MODEL = "claude-sonnet-5-5";
 
 export function resolveModel(): string {
   const fromEnv = process.env.SOT_MODEL?.trim();
