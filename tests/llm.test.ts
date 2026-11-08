@@ -62,7 +62,7 @@ describe("DEFAULT_MODEL and VERSION", () => {
     const pkg = JSON.parse(
       readFileSync(new URL("../package.json", import.meta.url), "utf8"),
     ) as { version: string };
-    expect(VERSION).toBe("1.0.1");
+    expect(VERSION).toBe("1.0.2");
     expect(VERSION).toBe(pkg.version);
     expect(readPackageVersion(new URL("../package.json", import.meta.url))).toBe(
       pkg.version,

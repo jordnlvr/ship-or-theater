@@ -1,6 +1,6 @@
 {
   "name": "ship-or-theater",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Paste in an AI claim you saw online and get a straight answer, with evidence: real (SHIPS), half-true (MIXED) or hype (THEATER).",
   "type": "module",
   "license": "MIT",
