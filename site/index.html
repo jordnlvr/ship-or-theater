@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ship or Theater: score any AI claim, 0 to 100</title>
-  <meta name="description" content="An open-source CLI, MCP server and library. Six skeptics, a steelman and a judge score any AI claim on a fixed public rubric, and say 'inconclusive' when the evidence can't support a number.">
+  <title>Ship or Theater: is that AI claim too good to be true?</title>
+  <meta name="description" content="Paste in an AI claim you saw online and get a straight answer, with evidence: real (SHIPS), half-true (MIXED) or hype (THEATER).">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#f5f4f0" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0b0d12" media="(prefers-color-scheme: dark)">
@@ -12,16 +12,16 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Ship or Theater">
-  <meta property="og:title" content="Ship or Theater: is it shipping, or is it theater?">
-  <meta property="og:description" content="Six skeptics, a steelman and a judge score any AI claim, 0 to 100, on a fixed public rubric.">
+  <meta property="og:title" content="Saw an AI claim that sounds too good to be true?">
+  <meta property="og:description" content="Paste in an AI claim you saw online and get a straight answer, with evidence: real (SHIPS), half-true (MIXED) or hype (THEATER).">
   <meta property="og:url" content="https://jordnlvr.github.io/ship-or-theater/">
   <meta property="og:image" content="https://jordnlvr.github.io/ship-or-theater/social-card.png">
   <meta property="og:image:width" content="1280">
   <meta property="og:image:height" content="640">
-  <meta property="og:image:alt" content="Ship or Theater: score any AI claim from 0 to 100 on a fixed public rubric.">
+  <meta property="og:image:alt" content="Saw an AI claim that sounds too good to be true? Ship or Theater: real, half-true or hype, with reasons.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Ship or Theater: is it shipping, or is it theater?">
-  <meta name="twitter:description" content="Six skeptics, a steelman and a judge score any AI claim, 0 to 100, on a fixed public rubric.">
+  <meta name="twitter:title" content="Saw an AI claim that sounds too good to be true?">
+  <meta name="twitter:description" content="Paste in an AI claim you saw online and get a straight answer, with evidence: real (SHIPS), half-true (MIXED) or hype (THEATER).">
   <meta name="twitter:image" content="https://jordnlvr.github.io/ship-or-theater/social-card.png">
   <link rel="preload" href="fonts/Inter-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/Newsreader-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -46,6 +46,7 @@
           <a href="#rubric">Rubric</a>
           <a href="#gallery">Gallery</a>
           <a href="#install">Install</a>
+          <a href="#principles">Principles</a>
           <a class="nav-links-gh" href="https://github.com/jordnlvr/ship-or-theater">GitHub</a>
         </div>
         <a class="nav-gh" href="https://github.com/jordnlvr/ship-or-theater">GitHub</a>
@@ -57,13 +58,16 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="wrap hero-in">
         <div class="hero-copy">
-          <h1 id="hero-title">Is it shipping, or is it <em>theater</em>?</h1>
-          <p class="lede">Hand it any AI claim. Six skeptics attack it, a steelman defends it, and a judge scores it from 0 to 100 on a fixed, public rubric. When the evidence can’t support a number, it says so.</p>
+<!-- sot:pitch:start -->
+          <p class="hero-kicker">Is it shipping, or is it theater?</p>
+          <h1 id="hero-title">Saw an AI claim that sounds too good to be true?</h1>
+          <p class="lede">Every day your feed says AI just replaced a team, passed the bar exam, or built an app over lunch. Some of it is real. A lot of it is a polished demo, a cherry-picked number, or plain hype. Paste the claim in. Ship or Theater asks the six questions a skeptical engineer would ask and gives you a straight answer, with reasons: it ships, it’s mixed, or it’s theater.</p>
+<!-- sot:pitch:end -->
           <div class="cmd" data-copy-wrap>
             <code id="cmd-hero"><span class="prompt" aria-hidden="true">$</span> npx ship-or-theater <span class="nw">"&lt;claim&gt;"</span></code>
             <button type="button" class="copy" data-copy="npx ship-or-theater &quot;&lt;claim&gt;&quot;" aria-label="Copy the command">Copy</button>
           </div>
-          <p class="hero-note">Open source. Runs on your Claude Code login or an <code>ANTHROPIC_API_KEY</code>. CLI, MCP server and TypeScript library. MIT.</p>
+          <p class="hero-note">Open source. Use your Claude Code login or an API key.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#gallery">See real scorecards</a>
             <a class="btn" href="https://github.com/jordnlvr/ship-or-theater">View on GitHub</a>
@@ -113,7 +117,7 @@
       <div class="wrap how-in">
         <div class="sec-head">
           <h2 id="how-title">How a claim gets judged</h2>
-          <p>Nine agent calls, one direction of travel. Every hop returns schema-checked JSON, so nothing loose reaches the judge.</p>
+          <p>Six skeptics challenge the claim, a steelman makes its strongest honest case, and a judge weighs both sides. The result: a score from 0 to 100, or inconclusive when the evidence can’t support a number.</p>
         </div>
         <ol class="pipe">
           <li class="stage">

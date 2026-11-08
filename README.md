@@ -1,3 +1,13 @@
+<!-- sot:readme-pitch:start -->
+# Saw an AI claim that sounds too good to be true?
+
+Paste in an AI claim you saw online and get a straight answer, with evidence: real (SHIPS), half-true (MIXED) or hype (THEATER).
+
+- Reading a launch post? Find out what actually shipped.
+- Vetting a vendor demo? See what the evidence supports.
+- Checking a headline before you share it? Get the reasons first.
+<!-- sot:readme-pitch:end -->
+
 <div align="center">
 
 <img src="assets/logo.svg" alt="ship or theater" width="360">

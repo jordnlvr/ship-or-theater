@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-11-07
+
+### Changed
+- Updated `package.json`, CLI `--help`, and MCP `evaluate_claim` descriptions to begin with the plain-English summary: *"Paste in an AI claim you saw online and get a straight answer, with evidence: real (SHIPS), half-true (MIXED) or hype (THEATER)."*
+- Landing page, README and social card now say who it's for and why; phone menu links to Principles.
+- Upgraded `@anthropic-ai/sdk` from `^0.39.0` to `^1.6.0`, removing the transitive `formdata-node` / `node-domexception@1.0.0` install deprecation warning.
+- `VERSION` is now read from `package.json` at runtime so CLI and MCP version metadata cannot drift from the package manifest.
+
+### Fixed
+- `npx ship-or-theater "<claim>" > file` from Git Bash on Windows could exit 0 with an empty file. The CLI now waits for `stdout` to finish writing (and drain) before it exits; verified with a real run through `npx` in Git Bash. `--out <file>` remains the most robust way to save a scorecard.
+- Output write errors (for example a closed pipe) are reported on `stderr` with exit code `1` instead of crashing.
+
 ## [1.0.0] - 2026-11-07
 
 ### Added

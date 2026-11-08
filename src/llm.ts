@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import Anthropic from "@anthropic-ai/sdk";
 import { z } from "zod";
 
@@ -9,8 +10,27 @@ import { z } from "zod";
  * fake `llm` and no API key.
  */
 
+/**
+ * Read the package version from `package.json` so runtime version metadata stays
+ * synchronized with the published manifest.
+ */
+export function readPackageVersion(
+  pkgUrl: URL | string = new URL("../package.json", import.meta.url),
+): string {
+  try {
+    const raw = readFileSync(pkgUrl, "utf8");
+    const parsed = JSON.parse(raw) as { version?: unknown };
+    if (typeof parsed.version === "string" && parsed.version.trim().length > 0) {
+      return parsed.version.trim();
+    }
+  } catch {
+    // Fall back to the release constant if package.json cannot be read.
+  }
+  return "1.0.1";
+}
+
 /** Package version constant. */
-export const VERSION = "1.0.0";
+export const VERSION: string = readPackageVersion();
 
 /** Default model; override with the SOT_MODEL env var. */
 export const DEFAULT_MODEL = "claude-sonnet-5-5";

@@ -29,8 +29,10 @@ export function createMcpServer(): McpServer {
     {
       title: "Evaluate an AI claim",
       description:
-        "Evaluate an AI claim, announcement, or demo against the fixed reality " +
-        "rubric and return a scorecard (verdict, reality score, per-dimension " +
+        "Paste in an AI claim you saw online and get a straight answer, with " +
+        "evidence: real (SHIPS), half-true (MIXED) or hype (THEATER). " +
+        "Evaluates the claim, announcement, or demo against the fixed reality " +
+        "rubric and returns a scorecard (verdict, reality score, per-dimension " +
         "scores, strongest steelman, strongest debunk). Uses SOT_PROVIDER " +
         "(default 'auto': Anthropic API if ANTHROPIC_API_KEY is set, otherwise " +
         "the local `claude` CLI with no API key required).",

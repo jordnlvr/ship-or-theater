@@ -32,6 +32,13 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITE = path.join(ROOT, "site");
 
+// Human pitch lives here as well as in the checked-in HTML/README so a gallery
+// rebuild keeps the introduction intact. Mechanism details stay below the hero.
+const HEADLINE = "Saw an AI claim that sounds too good to be true?";
+const ONE_LINER = "Paste in an AI claim you saw online and get a straight answer, with evidence: real (SHIPS), half-true (MIXED) or hype (THEATER).";
+const HERO_BODY = "Every day your feed says AI just replaced a team, passed the bar exam, or built an app over lunch. Some of it is real. A lot of it is a polished demo, a cherry-picked number, or plain hype. Paste the claim in. Ship or Theater asks the six questions a skeptical engineer would ask and gives you a straight answer, with reasons: it ships, it’s mixed, or it’s theater.";
+const README_PITCH = `# ${HEADLINE}\n\n${ONE_LINER}\n\n- Reading a launch post? Find out what actually shipped.\n- Vetting a vendor demo? See what the evidence supports.\n- Checking a headline before you share it? Get the reasons first.`;
+
 // ---------- args ----------
 function arg(name) {
   const i = process.argv.indexOf(`--${name}`);
@@ -431,13 +438,21 @@ if (isDev) cpSync(SITE, outDir, { recursive: true });
 
 const indexPath = path.join(outDir, "index.html");
 let html = readFileSync(indexPath, "utf8");
+// Custom fixture templates may omit the pitch slot; keep that existing contract.
+if (html.includes("<!-- sot:pitch:start -->")) {
+  html = inject(html, "pitch", `          <p class="hero-kicker">Is it shipping, or is it theater?</p>\n          <h1 id="hero-title">${esc(HEADLINE)}</h1>\n          <p class="lede">${esc(HERO_BODY)}</p>`);
+}
 html = inject(html, "hero", heroCardHTML(entries[0], entries));
 html = inject(html, "gallery", galleryHTML(entries));
 writeFileSync(indexPath, html);
 
 // README gallery table: shipped build only (a dev build must not touch README.md) unless --readme is given.
 const readmePath = arg("readme") ?? (isDev ? null : path.join(ROOT, "README.md"));
-if (readmePath) writeFileSync(readmePath, inject(readFileSync(readmePath, "utf8"), "readme-gallery", readmeGallery(entries), path.basename(readmePath)));
+if (readmePath) {
+  let readme = readFileSync(readmePath, "utf8");
+  if (readme.includes("<!-- sot:readme-pitch:start -->")) readme = inject(readme, "readme-pitch", README_PITCH, path.basename(readmePath));
+  writeFileSync(readmePath, inject(readme, "readme-gallery", readmeGallery(entries), path.basename(readmePath)));
+}
 
 writeFileSync(
   path.join(outDir, "gallery-data.json"),

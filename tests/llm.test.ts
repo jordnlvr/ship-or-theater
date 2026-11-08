@@ -5,6 +5,7 @@ import {
   createLLM,
   DEFAULT_MODEL,
   type LLMRequest,
+  readPackageVersion,
   resolveModel,
   VERSION,
 } from "../src/llm.js";
@@ -61,8 +62,14 @@ describe("DEFAULT_MODEL and VERSION", () => {
     const pkg = JSON.parse(
       readFileSync(new URL("../package.json", import.meta.url), "utf8"),
     ) as { version: string };
-    expect(VERSION).toBe("1.0.0");
+    expect(VERSION).toBe("1.0.1");
     expect(VERSION).toBe(pkg.version);
+    expect(readPackageVersion(new URL("../package.json", import.meta.url))).toBe(
+      pkg.version,
+    );
+    expect(
+      readPackageVersion(new URL("../nonexistent-package.json", import.meta.url)),
+    ).toBe("1.0.1");
   });
 });
 

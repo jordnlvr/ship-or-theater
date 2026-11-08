@@ -1,7 +1,7 @@
 {
   "name": "ship-or-theater",
-  "version": "1.0.0",
-  "description": "Evaluate AI claims, demos, and announcements against a fixed, weighted reality rubric and render an honest scorecard.",
+  "version": "1.0.1",
+  "description": "Paste in an AI claim you saw online and get a straight answer, with evidence: real (SHIPS), half-true (MIXED) or hype (THEATER).",
   "type": "module",
   "license": "MIT",
   "author": "Kelly Seale",
@@ -55,7 +55,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.39.0",
+    "@anthropic-ai/sdk": "^1.6.0",
     "@modelcontextprotocol/sdk": "^1.10.0",
     "commander": "^13.1.0",
     "zod": "^3.24.0"

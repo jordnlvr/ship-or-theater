@@ -33,7 +33,9 @@ interface CliOptions {
 export interface CliStream {
   isTTY?: boolean;
   columns?: number;
-  write: (chunk: string) => boolean;
+  write: (chunk: string, callback?: (error?: Error | null) => void) => boolean;
+  once?: (event: string, listener: (...args: unknown[]) => void) => unknown;
+  off?: (event: string, listener: (...args: unknown[]) => void) => unknown;
 }
 
 export interface CliIO {
@@ -41,6 +43,92 @@ export interface CliIO {
   stderr?: CliStream;
   env?: NodeJS.ProcessEnv;
   llmOverride?: LLM;
+}
+
+/**
+ * Write a chunk to stdout and wait for both the write callback and stream
+ * drain when backpressure occurs on a pipe or redirected file descriptor.
+ */
+export async function writeStdout(
+  stream: CliStream,
+  chunk: string,
+): Promise<void> {
+  await new Promise<void>((resolve, reject) => {
+    let settled = false;
+    let writeReturned = false;
+    let writeDone = false;
+    let drainDone = true;
+
+    const cleanup = (keepErrorListener = false) => {
+      if (typeof stream.off === "function") {
+        stream.off("drain", onDrain);
+        // On a failed write Node may call the write callback BEFORE it emits
+        // 'error' (e.g. EPIPE). Keep the listener so that later emit is handled
+        // instead of crashing the process as an uncaught stream error.
+        if (!keepErrorListener) stream.off("error", onError);
+      }
+    };
+
+    const finish = (err?: unknown) => {
+      if (settled) return;
+      if (err) {
+        settled = true;
+        cleanup(true);
+        reject(err instanceof Error ? err : new Error(String(err)));
+        return;
+      }
+      if (writeReturned && writeDone && drainDone) {
+        settled = true;
+        cleanup();
+        resolve();
+      }
+    };
+
+    const onDrain = () => {
+      drainDone = true;
+      finish();
+    };
+
+    const onError = (err: unknown) => {
+      finish(err ?? new Error("stdout stream error"));
+    };
+
+    if (typeof stream.once === "function") {
+      stream.once("error", onError);
+    }
+
+    try {
+      const expectsCallback = stream.write.length >= 2;
+      const flushed = expectsCallback
+        ? stream.write(chunk, (err) => {
+            if (err) {
+              finish(err);
+              return;
+            }
+            writeDone = true;
+            finish();
+          })
+        : stream.write(chunk);
+
+      if (!expectsCallback) {
+        writeDone = true;
+      }
+
+      if (!flushed && typeof stream.once === "function") {
+        drainDone = false;
+      }
+
+      writeReturned = true;
+
+      if (!drainDone && typeof stream.once === "function") {
+        stream.once("drain", onDrain);
+      }
+
+      finish();
+    } catch (err) {
+      finish(err);
+    }
+  });
 }
 
 export async function runCli(
@@ -58,7 +146,7 @@ export async function runCli(
     .name("ship-or-theater")
     .version(VERSION, "-V, --version", "print the package version")
     .description(
-      "Evaluate an AI claim against a fixed reality rubric and render a scorecard.",
+      "Paste in an AI claim you saw online and get a straight answer, with evidence: real (SHIPS), half-true (MIXED) or hype (THEATER).",
     )
     .argument(
       "[claim]",
@@ -120,11 +208,17 @@ export async function runCli(
           color: useColor,
           width,
         });
-        if (options.out) {
-          await writeFile(options.out, rubricText, "utf8");
-          stderr.write(`Rubric written to ${options.out}\n`);
-        } else {
-          stdout.write(rubricText + "\n");
+        try {
+          if (options.out) {
+            await writeFile(options.out, rubricText, "utf8");
+            stderr.write(`Rubric written to ${options.out}\n`);
+          } else {
+            await writeStdout(stdout, rubricText + "\n");
+          }
+        } catch (err: unknown) {
+          const message = err instanceof Error ? err.message : String(err);
+          stderr.write(`Failed to write output: ${message}\n`);
+          exitCode = 1;
         }
         return;
       }
@@ -186,11 +280,17 @@ export async function runCli(
             ? renderTerminal(scorecard, { color: useColor, width })
             : renderMarkdown(scorecard);
 
-      if (options.out) {
-        await writeFile(options.out, output, "utf8");
-        stderr.write(`Scorecard written to ${options.out}\n`);
-      } else {
-        stdout.write(output + "\n");
+      try {
+        if (options.out) {
+          await writeFile(options.out, output, "utf8");
+          stderr.write(`Scorecard written to ${options.out}\n`);
+        } else {
+          await writeStdout(stdout, output + "\n");
+        }
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : String(err);
+        stderr.write(`Failed to write output: ${message}\n`);
+        exitCode = 1;
       }
     });
 

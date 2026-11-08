@@ -143,15 +143,13 @@ code { font-family: var(--mono); font-size: .88em; }
 .btn-primary:hover { background: color-mix(in srgb, var(--ink) 86%, var(--bg)); }
 
 /* ---------- hero ---------- */
-/* 48px top: header + hero + 680px card fit inside a 1440x900 viewport with the CTAs clear of the fold. */
-.hero { padding: var(--s7) 0 var(--s8); }
-.hero-in { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: var(--s8); align-items: center; }
-/* 1.1 leading: the descenders of "shipping," clear the ascenders of "theater?" on the line below. */
-h1 { font: 600 clamp(44px, 6.4vw, 84px)/1.1 var(--serif); letter-spacing: -.028em; }
-/* The italic r overhangs its box; .08em keeps it off the upright "?". */
-h1 em { font-style: italic; font-weight: 500; color: var(--theater); padding-right: .08em; }
-.lede { margin-top: var(--s5); font-size: 20px; line-height: 1.55; color: var(--ink-2); max-width: 34em; }
-.cmd { margin-top: var(--s6); display: flex; align-items: center; gap: var(--s3); max-width: 520px; padding: 8px 8px 8px 18px; background: var(--code-bg); color: var(--code-ink); border: 1px solid var(--code-rule); border-radius: 12px; }
+/* Human pitch and the complete featured scorecard fit inside 1440x900. */
+.hero { padding: var(--s6) 0 var(--s8); }
+.hero-in { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--s7); align-items: center; }
+.hero-kicker { margin-bottom: var(--s4); font-size: 16px; font-weight: 600; color: var(--ink-2); }
+h1 { font: 600 clamp(44px, 4.4vw, 64px)/1.1 var(--serif); letter-spacing: -.028em; }
+.lede { margin-top: var(--s5); font-size: 18px; line-height: 1.55; color: var(--ink-2); max-width: 34em; }
+.cmd { margin-top: var(--s5); display: flex; align-items: center; gap: var(--s3); max-width: 520px; padding: 8px 8px 8px 18px; background: var(--code-bg); color: var(--code-ink); border: 1px solid var(--code-rule); border-radius: 12px; }
 .cmd code { flex: 1; min-width: 0; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cmd code { background: none; padding: 0; border-radius: 0; color: inherit; font-weight: 400; }
 .cmd .prompt { color: var(--code-dim); margin-right: 6px; user-select: none; }
@@ -160,10 +158,10 @@ h1 em { font-style: italic; font-weight: 500; color: var(--theater); padding-rig
 .copy:hover { background: color-mix(in srgb, var(--code-ink) 10%, transparent); border-color: color-mix(in srgb, var(--code-ink) 40%, transparent); }
 .copy:focus-visible { outline-color: var(--code-ink); }
 .copy[data-done] { border-color: var(--ships); }
-.hero-note { margin-top: var(--s4); font-size: 15px; color: var(--ink-3); max-width: 34em; }
+.hero-note { margin-top: var(--s4); font-size: 14px; color: var(--ink-3); max-width: 34em; }
 /* Plain mono in the note: a filled badge before the full stop read as a stray space. */
 .hero-note code { background: none; padding: 0; color: var(--ink-2); font-weight: 500; }
-.hero-actions { margin-top: var(--s6); display: flex; flex-wrap: wrap; gap: var(--s3); }
+.hero-actions { margin-top: var(--s5); display: flex; flex-wrap: wrap; gap: var(--s3); }
 
 /* ---------- scorecard (hero) ---------- */
 .sc { background: var(--surface); border: 1px solid var(--rule); border-radius: 20px; padding: var(--s6); box-shadow: var(--shadow); }
@@ -384,7 +382,7 @@ h1 em { font-style: italic; font-weight: 500; color: var(--theater); padding-rig
 }
 @media (max-width: 800px) {
   .cards { grid-template-columns: minmax(0, 1fr); }
-  /* Phone and tablet: the four section links live in a Menu disclosure under the header. No JS: hidden, as before. */
+  /* Phone and tablet: section links live in a Menu disclosure under the header. */
   .nav { gap: var(--s2); }
   .nav-links { display: none; }
   .js .nav-toggle { display: inline-flex; }
@@ -396,7 +394,9 @@ h1 em { font-style: italic; font-weight: 500; color: var(--theater); padding-rig
 @media (max-width: 560px) {
   :root { --gutter: 16px; }
   body { font-size: 16px; }
-  .hero { padding: var(--s7) 0 var(--s7); }
+  .hero { padding: var(--s6) 0 var(--s7); }
+  .hero-kicker { font-size: 15px; }
+  .nav-toggle { min-height: 44px; }
   .lede { font-size: 18px; }
   .band { padding: var(--s8) 0; }
   .sec-head { margin-bottom: var(--s6); }
